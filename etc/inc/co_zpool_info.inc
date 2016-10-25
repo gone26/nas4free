@@ -528,7 +528,7 @@ class co_zpool_info {
 					$b_val = false;
 //					if(!$b_tag) {
 						unset($a_matches);
-						if(preg_match_all('/^(\s+)(\S+)\:$/', $r_row, $a_matches)) { // tag detected
+						if(preg_match_all('/^(\s+)([^\s:]+):$/', $r_row, $a_matches)) { // tag detected
 							$indent_current = strlen($a_matches[1][0]);
 							$tag = $a_matches[2][0];
 							$val = '';
@@ -537,7 +537,7 @@ class co_zpool_info {
 //					}
 					if(!$b_tag) { // no tag without value detected, now check for tag:value
 						unset($a_matches);
-						if(preg_match_all('/^(\s+)(\S+)\:\s(\S.*)$/', $r_row, $a_matches)) { // tag->value detected)
+						if(preg_match_all('/^(\s+)([^\s:]+):\s(\S.*)$/i', $r_row, $a_matches)) { // tag->value detected)
 							$indent_current = strlen($a_matches[1][0]);
 							$tag = $a_matches[2][0];
 							$val = str_replace("'", "", trim($a_matches[3][0])); // trim and remove surrounding single quores from value
