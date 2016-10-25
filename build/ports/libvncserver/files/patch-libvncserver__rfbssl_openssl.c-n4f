@@ -1,0 +1,41 @@
+--- libvncserver/rfbssl_openssl.c.orig	2012-05-04 23:19:00.000000000 +0900
++++ libvncserver/rfbssl_openssl.c	2015-11-28 03:22:41.703389000 +0900
+@@ -24,6 +24,7 @@
+ #include "rfbssl.h"
+ #include <openssl/ssl.h>
+ #include <openssl/err.h>
++#include <unistd.h>
+ 
+ struct rfbssl_ctx {
+     SSL_CTX *ssl_ctx;
+@@ -51,17 +52,30 @@
+     } else {
+       keyfile = cl->screen->sslcertfile;
+     }
++    if (!keyfile || !keyfile[0]) {
++      keyfile = "/var/etc/vbox-cert.pem";
++      if (access(keyfile, R_OK) != 0) {
++	keyfile = "/var/etc/cert.pem";
++      }
++    }
+ 
+     if (NULL == (ctx = malloc(sizeof(struct rfbssl_ctx)))) {
+ 	rfbErr("OOM\n");
++#if 0
+     } else if (!cl->screen->sslcertfile || !cl->screen->sslcertfile[0]) {
+ 	rfbErr("SSL connection but no cert specified\n");
++#endif
+     } else if (NULL == (ctx->ssl_ctx = SSL_CTX_new(TLSv1_server_method()))) {
+ 	rfbssl_error();
+     } else if (SSL_CTX_use_PrivateKey_file(ctx->ssl_ctx, keyfile, SSL_FILETYPE_PEM) <= 0) {
+ 	rfbErr("Unable to load private key file %s\n", keyfile);
++#if 0
+     } else if (SSL_CTX_use_certificate_file(ctx->ssl_ctx, cl->screen->sslcertfile, SSL_FILETYPE_PEM) <= 0) {
+ 	rfbErr("Unable to load certificate file %s\n", cl->screen->sslcertfile);
++#else
++    } else if (SSL_CTX_use_certificate_file(ctx->ssl_ctx, keyfile, SSL_FILETYPE_PEM) <= 0) {
++	rfbErr("Unable to load certificate file %s\n", keyfile);
++#endif
+     } else if (NULL == (ctx->ssl = SSL_new(ctx->ssl_ctx))) {
+ 	rfbErr("SSL_new failed\n");
+ 	rfbssl_error();

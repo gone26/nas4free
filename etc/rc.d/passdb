@@ -1,0 +1,76 @@
+#!/bin/sh
+#
+# Part of NAS4Free (http://www.nas4free.org).
+# Copyright (c) 2012-2016 The NAS4Free Project <info@nas4free.org>.
+# All rights reserved.
+#
+# Configure passdb
+#
+
+# PROVIDE: passdb
+# BEFORE: smbd
+# KEYWORD: nostart
+
+. /etc/rc.subr
+. /etc/configxml.subr
+
+name="passdb"
+desc="Configure passdb configuration files"
+command="/usr/local/bin/pdbedit"
+
+load_rc_config "$name"
+
+# Defaults
+passdb_file=${passdb_file:-"/var/etc/private/passdb"}
+passdb_minuid=${passdb_minuid:-"1000"}
+passdb_mingid=${passdb_mingid:-"1000"}
+
+# Check Samba AD
+configxml_isset //sambaad/enable
+sambaad=$?
+if [ 0 -eq ${sambaad} ]; then
+	exit 0
+fi
+
+# Display message
+echo "Updating passdb."
+
+# Clear password database
+rm -rf ${passdb_file}
+
+# Generate Samba password database.
+# Iterate over all configured users.
+_usernum=`configxml_get_count "//access/user"`
+while [ ${_usernum} -gt 0 ]
+do
+	_username=`configxml_get "//access/user[position()=${_usernum}]/login"`
+	_password=`configxml_get "//access/user[position()=${_usernum}]/password"`
+	_uid=`configxml_get "//access/user[position()=${_usernum}]/id"`
+
+	if [ ${_uid} -ge ${passdb_minuid} ]; then
+		(/bin/echo "${_password}"; /bin/echo "${_password}") | ${command} -t -a -u "${_username}" > /dev/null
+	fi
+
+	_usernum=$(( ${_usernum} - 1 ))
+done
+
+# Generate samba local group
+_logname=${LOGNAME}
+if [ -z "${_logname}" ]; then
+	_logname=`/usr/bin/id -un`
+fi
+# builtin admin
+LOGNAME="${_logname}" net groupmap add ntgroup="admin" unixgroup="admin" type=l > /dev/null
+# all configured groups
+_groupnum=`configxml_get_count "//access/group"`
+while [ ${_groupnum} -gt 0 ]
+do
+	_groupname=`configxml_get "//access/group[position()=${_groupnum}]/name"`
+	_gid=`configxml_get "//access/group[position()=${_groupnum}]/id"`
+
+	if [ ${_gid} -ge ${passdb_mingid} ]; then
+		LOGNAME="${_logname}" net groupmap add ntgroup="${_groupname}" unixgroup="${_groupname}" type=l > /dev\null
+	fi
+
+	_groupnum=$(( ${_groupnum} - 1 ))
+done

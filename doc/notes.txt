@@ -1,0 +1,9 @@
+/*
+	NAS4Free notes.txt
+*/
+
+- Encrypted user passwords in config.xml:
+	It is not possible to use encrypted passwords in config.xml due to the following feature:
+	'Services|Webserver' --> 'Authentication' --> 'Enable Authentication'. Because the script
+	'/etc/rc.d/websrv_htpasswd' uses plain-text passwords to create an htpasswd file.
+
