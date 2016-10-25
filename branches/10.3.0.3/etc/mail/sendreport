@@ -1,0 +1,12 @@
+#!/usr/local/bin/php-cgi -f
+<?php
+#
+# Part of NAS4Free (http://www.nas4free.org).
+# Copyright (c) 2012-2016 The NAS4Free Project <info@nas4free.org>.
+# All rights reserved.
+#
+require_once("report.inc");
+
+$retval = @report_send_mail();
+exit($retval);
+?>

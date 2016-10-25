@@ -1,0 +1,124 @@
+#!/bin/sh
+#
+# Part of NAS4Free (http://www.nas4free.org).
+# Copyright (c) 2012-2016 The NAS4Free Project <info@nas4free.org>.
+# All rights reserved.
+#
+# Secure Shell Daemon
+#
+
+# PROVIDE: sshd
+# REQUIRE: LOGIN FILESYSTEMS
+# XQUERY: -i "count(//sshd/enable) > 0" -o "0" -b
+# RCVAR: sshd
+
+. /etc/rc.subr
+. /etc/configxml.subr
+
+name="sshd"
+desc="Secure Shell Daemon"
+rcvar="sshd_enable"
+
+load_rc_config "$name"
+
+# Custom commands
+start_precmd="sshd_mkconf"
+mkconf_cmd="sshd_mkconf"
+extra_commands="reload mkconf"
+
+# Defaults
+sshd_enable=${sshd_enable:-"NO"}
+sshd_config=${sshd_config:-"/var/etc/ssh/sshd_config"}
+sshd_hostrsakey=${sshd_hostrsakey:-"/var/etc/ssh/ssh_host_rsa_key"}
+sshd_hostdsakey=${sshd_hostdsakey:-"/var/etc/ssh/ssh_host_dsa_key"}
+command="/usr/sbin/${name}"
+command_args="-f /var/etc/ssh/sshd_config -h /var/etc/ssh/ssh_host_rsa_key"
+pidfile="/var/run/${name}.pid"
+
+sshd_mkconf()
+{
+	local _privatekey
+
+	# Create sshd_config file
+	/usr/local/bin/xml sel -t \
+		-o "HostKeyAlgorithms ssh-ed25519,ssh-rsa,ssh-dss" -n \
+		-o "HostKey /var/etc/ssh/ssh_host_rsa_key" -n \
+		-o "SyslogFacility LOCAL3" -n \
+		-o "Protocol 2" -n \
+		-o "UseDNS no" -n \
+		-i "string-length(//sshd/subsystem) > 0" -v "concat('Subsystem ', //sshd/subsystem)" -n -b \
+		-i "string-length(//sshd/subsystem) = 0" -v "concat('Subsystem ', 'sftp /usr/libexec/sftp-server')" -n -b \
+		-m "//sshd" \
+			-i "count(challengeresponseauthentication) = 0" -o "ChallengeResponseAuthentication no" -n -b \
+			-i "count(challengeresponseauthentication) > 0" -o "ChallengeResponseAuthentication yes" -n -b \
+			-i "count(port) > 0" -v "concat('Port ',port)" -n -b \
+			-i "count(permitrootlogin) > 0" -o "PermitRootLogin yes" -n -b \
+			-i "count(tcpforwarding) = 0" -o "AllowTcpForwarding no" -n -b \
+			-i "count(tcpforwarding) > 0" -o "AllowTcpForwarding yes" -n -b \
+			-i "count(compression) > 0" -o "Compression yes" -n -b \
+			-i "count(passwordauthentication) > 0" -o "PasswordAuthentication yes" -n -b \
+			-i "count(pubkeyauthentication) > 0" -o "PubkeyAuthentication yes" -n -b \
+			-m "auxparam" \
+				-v "." -n \
+			-b \
+		-b \
+		${configxml_file} | /usr/local/bin/xml unesc > ${sshd_config}
+
+	# Create private key
+	_platform=`cat /etc/platform | sed -e 's/.*-//'`
+	_confkey="/conf/ssh_host_rsa_key"
+	if [ -d /conf -a ! -f ${_confkey} ]; then
+		if [ "${_platform}" = "embedded" ]; then
+			/sbin/mount -uw /cf
+		fi
+		/usr/bin/ssh-keygen -q -t rsa -f ${_confkey} -N ""
+		/usr/bin/ssh-keygen -l -f ${_confkey}.pub
+		if [ "${_platform}" = "embedded" ]; then
+			/sbin/umount /cf; /sbin/mount /cf
+		fi
+	fi
+
+	# Create ssh_host_rsa_key file
+	_privatekey=`configxml_get "//sshd/private-key"`
+	/bin/rm -f ${sshd_hostrsakey}
+	/bin/rm -f ${sshd_hostdsakey}
+	if [ -n "${_privatekey}" ]; then
+		echo "${_privatekey}" > ${sshd_hostrsakey}.tmp
+		/usr/bin/uudecode -m -p -r ${sshd_hostrsakey}.tmp > ${sshd_hostrsakey}
+		/bin/rm -f ${sshd_hostrsakey}.tmp
+	elif [ -d /conf -a -f ${_confkey} ]; then
+		cp ${_confkey} ${sshd_hostrsakey}
+	else
+		echo "-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAvzenPFTj9cOw+30GhPpNk8OJ8prhW27iT3zbOXP+vSIxkLnS
+6lXnr9t5ZdrD15zXWs3HP0jRymQOJMAzOgmVTc1BSkwH82hdaIsN5sAJ1oZQcvwN
+2D4wcAKsNzZDf1QHmie8g4+GYDYri+Mdmz5ZwIHSgKb6put+l3b4JoJUl3JyCm0m
+W8nc4lRfyfS+cC63YebyMQ6X3fsx/E/hFShQ0FY6qgclpIJCcTTabqeTc9vC9DTX
+dqH8huyy6PRWdINieUb0t4dBGXSSmoDmjdYqj9L8wRawavF2U4biDvofCE0GcgR9
+Mhrc1HFwnyx5ovN6pvYcxlx3X9Jxa8ftHJCdTwIDAQABAoIBADo+P2g3C0B+nNfd
+WzEB9MM/WjNVTbNF8RT5GOVFGaCOW76Te1T5WZrNJQsLOX/hPA9igoAaNByLoWs8
+R94zsRCDppF02y8e6OTBBjj04YpAWxzK/YSSXLqhdcdTdffAppgj5l3ER8/icB0p
+zojM0xW59V5OfiZ9sI9+I1PHevCt2pZBOhJNHohit2+hyDWVsSsgpR+qaWRJtsfW
+p+AJOpxmgcvmeVnmFipb4gi3PdRN8WCM/lh1wdv8vNlsNBe1X3T6C9Lqfb3PP25u
+mg9uAX6z2/MAhUuqV1Gxaj0GWVMH6OMFat6rdaIm+Zs7nJ49sdnUHlpOze/U8tOp
+vn8vjWECgYEA4IeF+UXxmQRfZmiT59BPq9yqd3/mUbnDj9QZfqfJWcRkbu5+wzcS
+YLhHPQmOqn2Le8s51X/qJ/6mLqgMZrMJLtqQ59o+XC2O/5Kzx7CjLH2GqwASn3tZ
+WV3/6zC13SciOXkZfvFgw/13xQqT4/2tDCpfeYDs7AbY8jskjUCt4rcCgYEA2gTX
+hrVDFNVmXpX33DLJ2Xgh07b8TGqb4XAwpJECL21lNm0R3wzGMFsNnpErzl7IpsxB
+bXbvTefInzVTLhvlX2xrm3wSbvwYFiAQhOTxuvCNfAMUu+hxXvPtdSGc1/VPr0JY
+qyZbFxnBu8MbckCS/eul2FvP7dsujjzqpnU9IikCgYAKu8/Wy9Yx53icD7HKajX0
+1Fa94bpj+8pyjMQvPtwsU2wttW8P7AkP4J9fNp7AXcIWR+/a2gOap9zP7C6zlimB
+OOemfdNvWqo0Y5H+oN4cGWAfuqApSZ9K22iJmMmI6f8D2lsyq11h4TMhk1DgnFby
+dvAbgeNRoT4rzlIAArCNXwKBgGlD6zhMbq4xdzL2H+2+y/znZxXNBTZ0Rv1raOEc
+brytii/kK7vRdCPG4uWL3GXRF/qJJpIO2e54mkJcwePCblZLiA1Ts6bIq2yLYM55
+qEmFehrFdg5gZdTd2+oxJ4SSGj5Zv2wrodGeiw74Xlkk2pQlYjb75YJH0Mu2l+l1
+M+Y5AoGAHoAq4xow56hcQd3re3eLWWEG+3m+Y9KO0Wen87Q9TP1sLDXFON4etF+v
+jDOTXoR8UbcVDcayJ4D6Ngc+tBl7f6GGyRfjRP8y4sqz1WF99nD/W0aI0fA6jBz0
+/oxl/XHd2xpJps+/hLdRrTCRF0tzeeNmefmAXEmwMdEOO9TpWg4=
+-----END RSA PRIVATE KEY-----" > ${sshd_hostrsakey}
+	fi
+
+	/bin/chmod 0600 ${sshd_hostrsakey}
+}
+
+run_rc_command "$1"
