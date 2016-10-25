@@ -1501,7 +1501,7 @@ function togglecheckboxesbyname(ego, triggerbyname) {
 							render_activity_view($c_activity);
 							html_separator2(2);
 							html_titleline2(gtext('Select pools'), 2);
-							render_pool_edit($a_pool_for_remove_spare, '0N', $sphere_array['pool']);
+							render_pool_edit($a_pool, '0N', $sphere_array['pool']);
 							render_set_end();
 							render_submit(3, $sphere_array['activity'], $sphere_array['option'], [], $sphere_array['flag']);
 							break;
