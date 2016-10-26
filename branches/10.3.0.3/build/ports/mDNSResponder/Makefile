@@ -12,7 +12,8 @@ USE_LDCONFIG=		YES
 
 MAKE_ARGS+=		os=freebsd LOCALBASE=${PREFIX}
 BUILD_WRKSRC=		${WRKSRC}/mDNSPosix
-CONFLICTS=		avahi-libdns-[0-9]*
+# lib/libdns_sd.so.1 sbin/mdnsd
+CONFLICTS_INSTALL=	avahi-libdns openmdns
 
 USES=		cpe gmake
 
