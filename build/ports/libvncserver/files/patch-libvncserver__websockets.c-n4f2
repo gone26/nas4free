@@ -1,16 +1,6 @@
---- libvncserver/websockets.c.orig	2014-10-21 17:57:11.000000000 +0200
-+++ libvncserver/websockets.c	2016-09-23 15:15:23.000000000 +0200
-@@ -79,7 +79,8 @@
- typedef int (*wsDecodeFunc)(rfbClientPtr cl, char *dst, int len);
- 
- typedef struct ws_ctx_s {
--    char codeBuf[B64LEN(UPDATE_BUF_SIZE) + WSHLENMAX]; /* base64 + maximum frame header length */
-+    char codeBufDecode[B64LEN(UPDATE_BUF_SIZE) + WSHLENMAX]; /* base64 + maximum frame header length */
-+    char codeBufEncode[B64LEN(UPDATE_BUF_SIZE) + WSHLENMAX]; /* base64 + maximum frame header length */
-     char readbuf[8192];
-     int readbufstart;
-     int readbuflen;
-@@ -231,7 +232,7 @@
+--- libvncserver/websockets.c.orig	2015-11-27 18:41:45.428226000 +0900
++++ libvncserver/websockets.c	2015-11-27 18:41:52.471143000 +0900
+@@ -218,7 +218,7 @@
          scheme = "ws";
      }
  
@@ -19,26 +9,7 @@
        rfbErr("webSocketsHandshake: invalid client header\n");
        return FALSE;
      }
-@@ -490,24 +491,32 @@
-     int sz = 0;
-     ws_ctx_t *wsctx = (ws_ctx_t *)cl->wsctx;
- 
--    wsctx->codeBuf[sz++] = '\x00';
--    len = __b64_ntop((unsigned char *)src, len, wsctx->codeBuf+sz, sizeof(wsctx->codeBuf) - (sz + 1));
-+    wsctx->codeBufEncode[sz++] = '\x00';
-+    len = __b64_ntop((unsigned char *)src, len, wsctx->codeBufEncode+sz, sizeof(wsctx->codeBufEncode) - (sz + 1));
-     if (len < 0) {
-         return len;
-     }
-     sz += len;
- 
--    wsctx->codeBuf[sz++] = '\xff';
--    *dst = wsctx->codeBuf;
-+    wsctx->codeBufEncode[sz++] = '\xff';
-+    *dst = wsctx->codeBufEncode;
-     return sz;
- }
- 
+@@ -492,9 +492,17 @@
  static int
  ws_read(rfbClientPtr cl, char *buf, int len)
  {
@@ -57,27 +28,12 @@
      } else {
  	n = read(cl->sock, buf, len);
      }
-@@ -536,7 +545,7 @@
-     char *buf, *end = NULL;
-     ws_ctx_t *wsctx = (ws_ctx_t *)cl->wsctx;
- 
--    buf = wsctx->codeBuf;
-+    buf = wsctx->codeBufDecode;
- 
-     n = ws_peek(cl, buf, len*2+2);
- 
-@@ -657,11 +666,20 @@
-       goto spor;
-     }
- 
--    buf = wsctx->codeBuf;
--    header = (ws_header_t *)wsctx->codeBuf;
-+    buf = wsctx->codeBufDecode;
-+    header = (ws_header_t *)wsctx->codeBufDecode;
+@@ -647,7 +655,17 @@
+     buf = wsctx->codeBuf;
+     header = (ws_header_t *)wsctx->codeBuf;
  
 +#if 0
      ret = ws_peek(cl, buf, B64LEN(len) + WSHLENMAX);
--
 +#else
 +#define WSHLENMIN 6
 +    ret = ws_read(cl, buf, WSHLENMIN);
@@ -87,21 +43,21 @@
 +	goto spor;
 +    }
 +#endif
+ 
      if (ret < 2) {
          /* save errno because rfbErr() will tamper it */
-         if (-1 == ret) {
-@@ -695,6 +713,7 @@
+@@ -682,6 +700,7 @@
      if (flength < 126) {
  	fhlen = 2;
- 	mask = header->u.m;
+ 	mask = header->m;
 +#if 0
      } else if (flength == 126 && 4 <= ret) {
- 	flength = WS_NTOH16(header->u.s16.l16);
+ 	flength = WS_NTOH16(header->l16);
  	fhlen = 4;
-@@ -703,6 +722,28 @@
- 	flength = WS_NTOH64(header->u.s64.l64);
+@@ -690,6 +709,28 @@
+ 	flength = WS_NTOH64(header->l64);
  	fhlen = 10;
- 	mask = header->u.s64.m64;
+ 	mask = header->m64;
 +#else
 +    } else if (flength == 126) {
 +	fhlen = 4;
@@ -111,8 +67,8 @@
 +	    errno = EIO;
 +	    goto spor;
 +	}
-+	flength = WS_NTOH16(header->u.s64.l64);
-+	mask = header->u.s64.m64;
++	flength = WS_NTOH16(header->l16);
++	mask = header->m16;
 +    } else if (flength == 127) {
 +	fhlen = 10;
 +	ret = ws_read(cl, buf + WSHLENMIN, (fhlen + 4) - WSHLENMIN);
@@ -121,13 +77,13 @@
 +	    errno = EIO;
 +	    goto spor;
 +	}
-+	flength = WS_NTOH64(header->u.s64.l64);
-+	mask = header->u.s64.m64;
++	flength = WS_NTOH64(header->l64);
++	mask = header->m64;
 +#endif
      } else {
        /* Incomplete frame header */
        rfbErr("%s: incomplete frame header\n", __func__, ret);
-@@ -714,16 +755,28 @@
+@@ -701,16 +742,28 @@
      total = fhlen + flength + 4;
      payload = buf + fhlen + 4; /* header length + mask */
  
@@ -156,50 +112,3 @@
      }
  
      /* process 1 frame (32 bit op) */
-@@ -742,11 +795,11 @@
- 	errno = ECONNRESET;
- 	break;
-       case WS_OPCODE_TEXT_FRAME:
--	if (-1 == (flength = __b64_pton(payload, (unsigned char *)wsctx->codeBuf, sizeof(wsctx->codeBuf)))) {
-+	if (-1 == (flength = __b64_pton(payload, (unsigned char *)wsctx->codeBufDecode, sizeof(wsctx->codeBufDecode)))) {
- 	  rfbErr("%s: Base64 decode error; %m\n", __func__);
- 	  break;
- 	}
--	payload = wsctx->codeBuf;
-+	payload = wsctx->codeBufDecode;
- 	/* fall through */
-       case WS_OPCODE_BINARY_FRAME:
- 	if (flength > len) {
-@@ -790,7 +843,7 @@
- 	  return 0;
-     }
- 
--    header = (ws_header_t *)wsctx->codeBuf;
-+    header = (ws_header_t *)wsctx->codeBufEncode;
- 
-     if (wsctx->base64) {
- 	opcode = WS_OPCODE_TEXT_FRAME;
-@@ -816,7 +869,7 @@
-     }
- 
-     if (wsctx->base64) {
--        if (-1 == (ret = __b64_ntop((unsigned char *)src, len, wsctx->codeBuf + sz, sizeof(wsctx->codeBuf) - sz))) {
-+        if (-1 == (ret = __b64_ntop((unsigned char *)src, len, wsctx->codeBufEncode + sz, sizeof(wsctx->codeBufEncode) - sz))) {
- 	  rfbErr("%s: Base 64 encode failed\n", __func__);
- 	} else {
- 	  if (ret != blen)
-@@ -824,11 +877,12 @@
- 	  ret += sz;
- 	}
-     } else {
--      memcpy(wsctx->codeBuf + sz, src, len);
-+      memcpy(wsctx->codeBufEncode + sz, src, len);
-       ret =  sz + len;
-     }
- 
--    *dst = wsctx->codeBuf;
-+    *dst = wsctx->codeBufEncode;
-+
-     return ret;
- }
- 
