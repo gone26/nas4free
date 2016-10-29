@@ -32,7 +32,6 @@ Changes:
 - Upgrade lighttpd to 1.4.41.
 - Upgrade arcconf to 1_8_21375.
 - Upgrade libvncserver to 0.9.10.
-- Upgrade nano to 2.7.0.
 - Upgrade e2fsprogs to 1.43.3.
 - Upgrade netatalk to 3.1.10.
 - Upgrade sudo to 1.8.18.
@@ -45,6 +44,8 @@ Changes:
 - Upgrade tmux to 2.3.
 - Upgrade zoneinfo to 2016h.
 - Upgrade virtualbox-ose to 5.1.8.
+- Upgrade sudo to 1.8.18P1.
+- Upgrade nano to 2.7.0.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
