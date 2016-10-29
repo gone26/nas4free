@@ -129,7 +129,6 @@ AIO_SUPPORT_DESC=	Asyncronous IO support
 DNSUPDATE_DESC=		Dynamic DNS update (require ADS)
 EXP_MODULES_DESC=	Experimental modules
 FAM_DESC=		File Alteration Monitor support
-DEBUG_DESC=		With debug information in the binaries
 LDAP_DESC=		LDAP client support
 PAM_SMBPASS_DESC=	PAM authentication via passdb backends
 PTHREADPOOL_DESC=	Pthread pool
@@ -461,7 +460,7 @@ SAMBA_MAN8+=		eventlogadm.8 idmap_ad.8 idmap_autorid.8 idmap_hash.8 \
 IGNORE_NONTHREAD_PYTHON=needs port lang/python${PYTHON_SUFFIX} to be build with THREADS support
 
 post-extract:
-			@${RM} -rf ${WRKSRC}/pidl
+			@${RM} -r ${WRKSRC}/pidl
 
 post-patch:
 			@${REINPLACE_CMD} -e 's|$${PKGCONFIGDIR}|${PKGCONFIGDIR}|g' \
@@ -485,7 +484,7 @@ pre-configure:
 
 # XXX: Gross hack to allow build newer Samba while old one is installed.
 # This implies that LINKFLAGS_PYEMBED contains flags which are already
-# used in other parts of LINKFLAGS, namely -L$(LOCALBASE)/lib and -pthread
+# used in other parts of LINKFLAGS, namely -L${LOCALBASE}/lib and -pthread
 post-configure:
 	-${REINPLACE_CMD} -e 's|LINKFLAGS_PYEMBED.*|LINKFLAGS_PYEMBED = []|' \
 		${CONFIGURE_WRKSRC}/bin/c4che/default.cache.py
