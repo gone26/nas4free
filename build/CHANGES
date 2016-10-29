@@ -31,7 +31,6 @@ Changes:
 - Upgrade samba to 4.3.11.
 - Upgrade lighttpd to 1.4.41.
 - Upgrade arcconf to 1_8_21375.
-- Upgrade libvncserver to 0.9.10.
 - Upgrade e2fsprogs to 1.43.3.
 - Upgrade netatalk to 3.1.10.
 - Upgrade sudo to 1.8.18.
@@ -68,6 +67,7 @@ Fixes:
 - Fix change permission of a dataset fails if related pool doesn't use the default mount point.
 - Fix timezone in file manager.
 - Fix websockets-connection drop on mouse events in novnc.
+- Fix reverted libvncserver for proper shutdown vms.
 
 Permanent restrictions:
 - It is not possible to use virtualbox-ose on 32-bits nas4free, 64-bits only feature.
