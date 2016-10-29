@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: zoon01 <zoon01@nas4free.org>\n"
-"POT-Creation-Date: 2016-09-21 17:31+0000\n"
+"POT-Creation-Date: 2016-10-29 14:22+0000\n"
 "PO-Revision-Date: 2016-08-10 07:07+0000\n"
 "Last-Translator: Tomoyuki Shiga <tomoyuki_shiga@hotmail.com>\n"
 "Language-Team: NAS4Free\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-10-19 13:24+0000\n"
-"X-Generator: Launchpad (build 18232)\n"
+"X-Launchpad-Export-Date: 2016-10-29 12:41+0000\n"
+"X-Generator: Launchpad (build 18246)\n"
 "X-Poedit-Country: JAPAN\n"
 "Language: \n"
 "X-Poedit-Language: Japanese\n"
@@ -4263,9 +4263,6 @@ msgstr "検出されたディスクのリスト"
 msgid "List Imported Users"
 msgstr "インポートされたユーザ一覧"
 
-msgid "List Mount Points"
-msgstr "マウントポイントのリスト"
-
 msgid ""
 "List of acceptable pairwise (unicast) ciphers for WPA. One or more of: CCMP "
 "(AES in Counter mode with CBC-MAC, RFC 3610, IEEE 802.11i/D7.0), TKIP "
@@ -4624,9 +4621,6 @@ msgstr "メンバ インターフェース"
 msgid "Memory (MiB)"
 msgstr "メモリ (MiB)"
 
-msgid "Memory Usage"
-msgstr "メモリ使用量"
-
 msgid "Memory usage"
 msgstr "メモリ使用率"
 
@@ -4739,6 +4733,9 @@ msgstr "月"
 
 msgid "Mount Point"
 msgstr "マウントポイント"
+
+msgid "Mount Points"
+msgstr ""
 
 msgid "Mount point"
 msgstr "マウントポイント"
@@ -9343,3 +9340,9 @@ msgstr ""
 
 msgid "version:"
 msgstr "バージョン:"
+
+#~ msgid "List Mount Points"
+#~ msgstr "マウントポイントのリスト"
+
+#~ msgid "Memory Usage"
+#~ msgstr "メモリ使用量"

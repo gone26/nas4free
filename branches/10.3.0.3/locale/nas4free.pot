@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NAS4Free\n"
-"POT-Creation-Date: 2016-09-21 17:31+0000\n"
+"POT-Creation-Date: 2016-10-29 14:22+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -3862,9 +3862,6 @@ msgstr ""
 msgid "List Imported Users"
 msgstr ""
 
-msgid "List Mount Points"
-msgstr ""
-
 msgid "List of acceptable pairwise (unicast) ciphers for WPA. One or more of: CCMP (AES in Counter mode with CBC-MAC, RFC 3610, IEEE 802.11i/D7.0), TKIP (Temporal Key Integrity Protocol, IEEE 802.11i/D7.0)."
 msgstr ""
 
@@ -4205,9 +4202,6 @@ msgstr ""
 msgid "Memory (MiB)"
 msgstr ""
 
-msgid "Memory Usage"
-msgstr ""
-
 msgid "Memory usage"
 msgstr ""
 
@@ -4317,6 +4311,9 @@ msgid "Months"
 msgstr ""
 
 msgid "Mount Point"
+msgstr ""
+
+msgid "Mount Points"
 msgstr ""
 
 msgid "Mount point"
