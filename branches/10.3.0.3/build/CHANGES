@@ -45,7 +45,7 @@ Changes:
 - Upgrade zoneinfo to 2016h.
 - Upgrade virtualbox-ose to 5.1.8.
 - Upgrade sudo to 1.8.18P1.
-- Upgrade nano to 2.7.0.
+- Upgrade nano to 2.7.1.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
