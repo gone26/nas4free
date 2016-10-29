@@ -405,7 +405,6 @@ function install_upgrade_full($harddrive)
 	if (file_exists("{$sysbackup}/loader.conf.local")) {
 		mwexec("/bin/cp -p {$sysbackup}/loader.conf.local {$mntpath}/boot/");
 	}
-	#mwexec("/bin/cp -p {$sysbackup}/platform {$mntpath}/etc");
 	mwexec("/bin/cp -p {$sysbackup}/fstab {$mntpath}/etc");
 	mwexec("/bin/cp -p {$sysbackup}/cfdevice {$mntpath}/etc");
 
@@ -676,25 +675,6 @@ function install_init_disk($disk, $partlayout)
 
 		write_console("  {$diskdevicename}\n");
 
-/*
-		// Do not create partitions for swap.
-		if ("swap" === $partlayoutv['fstype']) {
-			// Completely wipe any prior information
-			if (mwexec("/bin/dd if=/dev/zero of=/dev/{$diskdevicename} bs=512 count=34")) {
-				set_kern_geom_debugflags(0);
-				write_console("\nError: Failed to wipe any prior information on {$diskdevicename}.\n");
-				return 1;
-			}
-			continue;
-		}
-
-		if (install_bsdlabel($diskdevicename, $partlayoutv['fstype'], $startsector, $slicesize, $alignsector)) {
-			set_kern_geom_debugflags(0);
-			write_console("\nError: Failed to create BSD label on {$diskdevicename}!\n");
-			return 1;
-		}
-*/
-
 		// force delete existing partitions (error is OK)
 		mwexec("/sbin/gpart destroy -F {$diskdevicename}");
 		// create BSD partition with alignment (UFS or swap)
@@ -874,7 +854,6 @@ function install_fdisk($disk, $slicesize)
 		if (is_numeric($slicesizev)) {
 			$bytes = $slicesizev * 1024 * 1024;
 			$slicetable[$slicesizek]['length'] = $bytes / $diskinfo['sectorsize'];
-			//$slicetable[$slicesizek]['length'] = floor($slicetable[$slicesizek]['length'] / $align) * $align;
 			$slicetable[$slicesizek]['length'] = ceil($slicetable[$slicesizek]['length'] / $align) * $align;
 			if ($slicesizek == 0) {
 				$slicetable[$slicesizek]['length'] -= $diskinfo['sectors'];
@@ -1015,10 +994,8 @@ function install_bsdlabel($disk, $fstype, $startsector, $slicesize, $alignsector
 	$fd = fopen("{$g['tmp_path']}/label.tmp", 'w');
 
 	while(list(,$val) = each($label)) {
-//		if (ereg ("unused",$val) && !ereg ("c:",$val)) {
 		if ((false !== strpos($val, 'unused')) && (false === strpos($val, 'c:'))) {
 			// Replace 'unused' with '$fstype'
-//			$val = ereg_replace("unused", $fstype, $val);
 			$val = str_replace("unused", $fstype, $val);
 			// Replace with aligned size
 			$val = preg_replace("/([a-z]:)\s+\d+\s+\d+/",
@@ -1090,7 +1067,6 @@ function install_detect_installation($mode, &$devinfo) {
 	$adisk = explode(" ", trim(preg_replace("/kern.disks: /", "", exec("/sbin/sysctl kern.disks"))));
 	foreach ($adisk as $diskv) {
 		// Skip mfs-mounted filesystems
-//		if (0 < ereg("md[0-9]*", $diskv))
 		if (false != preg_match('/md[\d]/', $diskv))
 			continue;
 
@@ -1116,7 +1092,6 @@ function install_detect_installation($mode, &$devinfo) {
 
 					case 'full':
 						$platform = chop(@file_get_contents("{$mnt_cf_disk}{$g['etc_path']}/platform"));
-//						if (FALSE !== ereg("^.*-full", $platform)) {
 						if (false !== strpos($platform, '-full')) {
 							$result = 0;
 						}
@@ -1153,7 +1128,6 @@ function install_detect_installation($mode, &$devinfo) {
 
 					case 'full':
 						$platform = chop(@file_get_contents("{$mnt_cf_disk}{$g['etc_path']}/platform"));
-//						if (FALSE !== ereg("^.*-full", $platform)) {
 						if (false !== strpos($platform, '-full')) {
 							$result = 0;
 						}
@@ -1190,7 +1164,6 @@ function install_detect_installation($mode, &$devinfo) {
 
 					case 'full':
 						$platform = chop(@file_get_contents("{$mnt_cf_disk}{$g['etc_path']}/platform"));
-//						if (FALSE !== ereg("^.*-full", $platform)) {
 						if (false !== strpos($platform, '-full')) {
 							$result = 0;
 						}
