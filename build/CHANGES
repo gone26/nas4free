@@ -1,7 +1,7 @@
 NAS4Free 10.3.0.3 - Pilingitam
 ------------------------------
 Changes:
-- Upgrade to FreeBSD 10.3-RELEASE-P10.
+- Upgrade to FreeBSD 10.3-RELEASE-P11.
 - Add search function to Diagnostics|Log.
 - Add bulk delete action to snapshots and other pages.
 - Add configuration option for second UPS system.
