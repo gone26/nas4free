@@ -589,11 +589,10 @@ resizepartition()
 	_cfdev=`/bin/cat /etc/cfdevice | sed -e 's/0.*/0/'`
 	_dev="/dev/${_cfdev}"
     _platform=`/bin/cat /etc/platform`
-	
-	echo "Resize for "${_platform}
-			
+
 	if [ "${ARCH}" = "arm" -a -f /cf/req_resize ]; then
 		# resize MBR partition
+		echo "Resize for "${_platform}
 		echo ""
 		echo "${_dev}: resize MBR/BSD partition. (auto reboot)"
 		if [ "${_platform}" = "bpi-full" ]; then
