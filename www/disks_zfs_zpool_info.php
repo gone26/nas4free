@@ -35,7 +35,11 @@ require 'auth.inc';
 require 'guiconfig.inc';
 
 function zfs_zpool_get_status() {
-	$cmd = 'zpool status -v';
+	if (isset($_GET['pool']) && is_string($_GET['pool'])) {
+		$cmd = sprintf('zpool status -v "%s"', $_GET['pool']);
+	} else {
+		$cmd = 'zpool status -v';
+	}
 	mwexec2($cmd, $rawdata);
 	return htmlspecialchars(implode("\n", $rawdata));
 }
