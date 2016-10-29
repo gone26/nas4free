@@ -36,9 +36,9 @@ require 'guiconfig.inc';
 
 function disks_zfs_zpool_get_io_ajax() {
 	if (isset($_GET['pool']) && is_string($_GET['pool'])) {
-		$cmd = sprintf('zpool iostat -v "%s" 2>&1 ', $_GET['pool']);
+		$cmd = sprintf('zpool iostat -v "%s"', $_GET['pool']);
 	} else {
-		$cmd = 'zpool iostat -v 2>&1';
+		$cmd = 'zpool iostat -v';
 	}
 	mwexec2($cmd, $rawdata);
 	return htmlspecialchars(implode("\n", $rawdata));
