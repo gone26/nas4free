@@ -203,38 +203,45 @@ $menu['help']['menuitem'][] = ['type' => 'separator', 'visible' => true];
 $menu['help']['menuitem'][] = ['desc' => gtext('Release Notes'), 'link' => 'changes.php', 'visible' => true];
 $menu['help']['menuitem'][] = ['desc' => gtext('License & Credits'), 'link' => 'license.php', 'visible' => true];
 $menu['help']['menuitem'][] = ['desc' => gtext('Donate'), 'link' => 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=info%40nas4free%2eorg&lc=US&item_name=NAS4Free%20Project&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest', 'visible' => TRUE, 'target' => '_blank'];
-
 function display_menu($menuid) {
 	global $menu;
 
-	if($menu[$menuid]['visible']) { // Is menu visible?
-		$link = empty($menu[$menuid]['link']) ? 'index.php' : $menu[$menuid]['link'];
-		echo "<li>\n";
-		$agent = $_SERVER['HTTP_USER_AGENT']; // Put browser name into local variable for desktop/mobile detection
-		if ((preg_match('/(iphone|android)/i', $agent))) {
-			echo "<a href=\"javascript:mopen('{$menuid}');\" onmouseout=\"mclosetime()\">".$menu[$menuid]['desc']."</a>\n";
-		} else {
-			echo "<a href=\"{$link}\" onclick=\"spinner()\" onmouseover=\"mopen('{$menuid}')\" onmouseout=\"mclosetime()\">".$menu[$menuid]['desc']."</a>\n";
-		}
-		echo "	<div id=\"{$menuid}\" onmouseover=\"mcancelclosetime()\" onmouseout=\"mclosetime()\">\n";
-		// Display menu items.
-		foreach ($menu[$menuid]['menuitem'] as $r_menuitem) {
-			if ($r_menuitem['visible']) { // Is menu item visible?
-				if (!isset($r_menuitem['type']) || 'separator' !== $r_menuitem['type']) { // Display menuitem.
-					$link = empty($r_menuitem['link']) ? 'index.php' : $r_menuitem['link'];
-					if(empty($r_menuitem['target'])) { // self -> spinner
-						echo '<a href="', $link, '" onclick="spinner()" target=_self"', '" title="', $r_menuitem['desc'], '">', $r_menuitem['desc'], '</a>', "\n";
-					} else { // has target -> without spinner
-						echo '<a href="', $link, '" target="', $r_menuitem['target'], '" title="', $r_menuitem['desc'], '">', $r_menuitem['desc'], '</a>', "\n";
-					}
-				} else { // Display separator.
-					echo "<span class=\"tabseparator\">&nbsp;</span>";
-				}
-			}
-		}
-		echo "	</div>\n";
-		echo "</li>\n";
+	// Is menu visible?
+	if (!$menu[$menuid]['visible'])
+		return;
+
+	$link = $menu[$menuid]['link'];
+	if ($link == '') $link = 'index.php';
+	echo "<li>\n";
+	$agent = $_SERVER['HTTP_USER_AGENT']; // Put browser name into local variable for desktop/mobile detection
+	if ((preg_match('/iPhone/i', $agent)) || (preg_match('/android/i', $agent))) {
+		echo "<a href=\"javascript:mopen('{$menuid}');\" onmouseout=\"mclosetime()\">".$menu[$menuid]['desc']."</a>\n";
+	} else {
+//		echo "<a href=\"{$link}\" onmouseover=\"mopen('{$menuid}')\" onmouseout=\"mclosetime()\">".$menu[$menuid]['desc']."</a>\n";
+		echo "<a href=\"{$link}\" onclick=\"spinner()\" onmouseover=\"mopen('{$menuid}')\" onmouseout=\"mclosetime()\">".$menu[$menuid]['desc']."</a>\n";
 	}
+	echo "	<div id=\"{$menuid}\" onmouseover=\"mcancelclosetime()\" onmouseout=\"mclosetime()\">\n";
+
+	# Display menu items.
+	foreach ($menu[$menuid]['menuitem'] as $menuk => $menuv) {
+		# Is menu item visible?
+		if (!$menuv['visible']) {
+			continue;
+		}
+		if (!isset($menuv['type']) || 'separator' !== $menuv['type']) {
+			# Display menuitem.
+			$link = $menuv['link'];
+			if ($link == '') $link = 'index.php';
+//			echo "<a href=\"{$link}\" target=\"" . (empty($menuv['target']) ? "_self" : $menuv['target']) . "\" title=\"".$menuv['desc']."\">".$menuv['desc']."</a>\n";
+			echo '<a href="', $link, '" onclick="spinner()" target="', (empty($menuv['target']) ? "_self" : $menuv['target']), '" title="', $menuv['desc'], '">', $menuv['desc'], '</a>', "\n";
+		} else {
+			# Display separator.
+			echo "<span class=\"tabseparator\">&nbsp;</span>";
+		}
+	}
+
+	echo "	</div>\n";
+	echo "</li>\n";
 }
 ?>
 <?php header('Content-Type: text/html; charset=' . system_get_language_codeset());?>
@@ -302,7 +309,8 @@ function display_menu($menuid) {
 			if ((preg_match('/iPhone/i', $agent)) || (preg_match('/android/i', $agent))) {
 				echo "<a href=\"javascript:mopen('extensions');\" onmouseout=\"mclosetime()\">".gtext('Extensions')."</a>";
 			} else {
-				echo "<a href=\"index.php\" onmouseover=\"mopen('extensions')\" onmouseout=\"mclosetime()\">".gtext('Extensions')."</a>";
+//				echo "<a href=\"index.php\" onmouseover=\"mopen('extensions')\" onmouseout=\"mclosetime()\">".gtext('Extensions')."</a>";
+				echo "<a href=\"index.php\" onclick=\"spinner()\" onmouseover=\"mopen('extensions')\" onmouseout=\"mclosetime()\">".gtext('Extensions')."</a>";
 			}
 		?>
 		<div id="extensions" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
