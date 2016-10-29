@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: zoon01 <zoon01@nas4free.org>\n"
-"POT-Creation-Date: 2016-09-21 17:31+0000\n"
-"PO-Revision-Date: 2016-10-03 21:33+0000\n"
-"Last-Translator: apollo567 <apollo567@hotmail.de>\n"
+"POT-Creation-Date: 2016-10-29 14:22+0000\n"
+"PO-Revision-Date: 2016-10-24 18:25+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: NAS4Free\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-10-19 13:24+0000\n"
-"X-Generator: Launchpad (build 18232)\n"
+"X-Launchpad-Export-Date: 2016-10-29 12:41+0000\n"
+"X-Generator: Launchpad (build 18246)\n"
 "X-Poedit-Country: GERMANY\n"
 "Language: \n"
 "X-Poedit-Language: German\n"
@@ -3243,7 +3243,7 @@ msgid "Export all the directories in the specified path."
 msgstr "Alle Ordner im angegebenen Pfad exportieren."
 
 msgid "Exported"
-msgstr ""
+msgstr "Exportiert"
 
 msgid "Extended Attributes"
 msgstr "Erweiterte Attribute"
@@ -4546,9 +4546,6 @@ msgstr "Übersicht gefundener Festplatten"
 msgid "List Imported Users"
 msgstr "Liste importierter Nutzer"
 
-msgid "List Mount Points"
-msgstr "List der Einhängepunkte (Mount Points)"
-
 msgid ""
 "List of acceptable pairwise (unicast) ciphers for WPA. One or more of: CCMP "
 "(AES in Counter mode with CBC-MAC, RFC 3610, IEEE 802.11i/D7.0), TKIP "
@@ -4930,9 +4927,6 @@ msgstr "Mitglieds Schnittstelle"
 msgid "Memory (MiB)"
 msgstr "Speicher in (MiB)"
 
-msgid "Memory Usage"
-msgstr "Speicherauslastung"
-
 msgid "Memory usage"
 msgstr "Speicherbelegung"
 
@@ -5046,6 +5040,9 @@ msgstr "Monate"
 
 msgid "Mount Point"
 msgstr "Einhängepunkt"
+
+msgid "Mount Points"
+msgstr ""
 
 msgid "Mount point"
 msgstr "Einhängepunkt"
@@ -5531,7 +5528,7 @@ msgid "Outgoing SMTP mail server address."
 msgstr "Ausgehende SMTP Mail-Server-Adresse."
 
 msgid "Output"
-msgstr ""
+msgstr "Ausgabe"
 
 msgid "Output current (A)"
 msgstr "ausgansseitige Stromstärke (in A)"
@@ -5610,7 +5607,7 @@ msgid "Pairwise"
 msgstr "Paarweise"
 
 msgid "Parameter"
-msgstr ""
+msgstr "Parameter"
 
 msgid "Parameter xxx (ups.conf or cmdline -x) setting"
 msgstr "Parameter xxx (ups.conf oder cmdline -x) Einstellung"
@@ -6413,7 +6410,7 @@ msgid "Role"
 msgstr "Rolle"
 
 msgid "Rollback"
-msgstr ""
+msgstr "Zurückrollen"
 
 msgid "Romanian"
 msgstr "Rumänisch"
@@ -7078,7 +7075,7 @@ msgid "Spanish"
 msgstr "Spanisch"
 
 msgid "Spare"
-msgstr ""
+msgstr "Reserve"
 
 msgid "Sparse"
 msgstr "Karg"
@@ -7252,7 +7249,7 @@ msgid "Subsystem"
 msgstr "Subsystem"
 
 msgid "Success"
-msgstr ""
+msgstr "Erfolg"
 
 msgid "Successful"
 msgstr "Erfolgreich"
@@ -7490,7 +7487,7 @@ msgid "Temporary directory to store transcoded files."
 msgstr "Temporäres Verzeichnis für umkodierte Dateien."
 
 msgid "Test Mode"
-msgstr ""
+msgstr "Testmodus"
 
 msgid "Test email"
 msgstr "Test E-Mail"
@@ -7503,7 +7500,7 @@ msgid "Test email successfully sent."
 msgstr "Test-E-Mail erfolgreich versendet."
 
 msgid "Test mode, no command execution"
-msgstr ""
+msgstr "Testmodus, keine Befehlsausführung"
 
 msgid ""
 "The  deny  option specifies users and groups who are not allowed access to "
@@ -8238,7 +8235,7 @@ msgstr ""
 "Der Server wird jetzt heruntergefahren. Dies kann eine Minute dauern."
 
 msgid "The server is rebooting now."
-msgstr ""
+msgstr "Der Server wird jetzt neu gestartet."
 
 msgid "The server will reboot after restoring the configuration."
 msgstr ""
@@ -9260,7 +9257,7 @@ msgid "Unformated"
 msgstr "Unformatiert"
 
 msgid "Uninitialized"
-msgstr ""
+msgstr "Uninitialisiert"
 
 msgid "Uninstall package"
 msgstr "Deinstallationspaket"
@@ -9284,7 +9281,7 @@ msgid "Unknown"
 msgstr "Unbekannt"
 
 msgid "Unknown Activity"
-msgstr ""
+msgstr "Unbekannte Aktivität"
 
 msgid "Unknown or unformatted"
 msgstr "Unbekannt oder nicht formatiert"
@@ -10087,3 +10084,9 @@ msgstr "Benutzer"
 
 msgid "version:"
 msgstr "Version:"
+
+#~ msgid "List Mount Points"
+#~ msgstr "List der Einhängepunkte (Mount Points)"
+
+#~ msgid "Memory Usage"
+#~ msgstr "Speicherauslastung"
