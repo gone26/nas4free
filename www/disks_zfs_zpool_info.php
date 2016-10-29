@@ -6,15 +6,12 @@
 	Copyright (c) 2012-2016 The NAS4Free Project <info@nas4free.org>.
 	All rights reserved.
 
-	Portions of freenas (http://www.freenas.org).
-	Copyright (c) 2005-2011 by Olivier Cochard <olivier@freenas.org>.
-	All rights reserved.
-
 	Redistribution and use in source and binary forms, with or without
 	modification, are permitted provided that the following conditions are met:
 
 	1. Redistributions of source code must retain the above copyright notice, this
 	   list of conditions and the following disclaimer.
+
 	2. Redistributions in binary form must reproduce the above copyright notice,
 	   this list of conditions and the following disclaimer in the documentation
 	   and/or other materials provided with the distribution.
@@ -34,51 +31,32 @@
 	of the authors and should not be interpreted as representing official policies,
 	either expressed or implied, of the NAS4Free Project.
 */
-require("auth.inc");
-require("guiconfig.inc");
-
-$pgtitle = array(gtext("Disks"), gtext("ZFS"), gtext("Pools"), gtext("Information"));
-
-if (!isset($config['zfs']['pools']['pool']) || !is_array($config['zfs']['pools']['pool']))
-	$config['zfs']['pools']['pool'] = array();
-
-if (!isset($config['zfs']['vdevices']['vdevice']) || !is_array($config['zfs']['vdevices']['vdevice']))
-	$config['zfs']['vdevices']['vdevice'] = array();
+require 'auth.inc';
+require 'guiconfig.inc';
 
 function zfs_zpool_get_status() {
-	global $config;
-
-	array_sort_key($config['zfs']['pools']['pool'], "name");
-	array_sort_key($config['zfs']['vdevices']['vdevice'], "name");
-
-	$a_pool = $config['zfs']['pools']['pool'];
-	$a_vdevice = $config['zfs']['vdevices']['vdevice'];
-
-	// Get zpool status informations
-	$cmd = "zpool status -v";
-	if (isset($_GET['pool'])) {
-		$cmd .= " {$_GET['pool']}";
-	}
+	$cmd = 'zpool status -v';
 	mwexec2($cmd, $rawdata);
-	return implode("\n", $rawdata);
+	return htmlspecialchars(implode("\n", $rawdata));
 }
-
 if (is_ajax()) {
 	$status = zfs_zpool_get_status();
 	render_ajax($status);
 }
+$pgtitle = [gtext('Disks'), gtext('ZFS'), gtext('Pools'), gtext('Information')];
 ?>
-<?php include("fbegin.inc");?>
-<script type="text/javascript">//<![CDATA[
+<?php include 'fbegin.inc';?>
+<script type="text/javascript">
+//<![CDATA[
 $(document).ready(function(){
 	var gui = new GUI;
 	gui.recall(0, 5000, 'disks_zfs_zpool_info.php', null, function(data) {
-		$('#zfs_zpool_status').text(data.data);
+		$('#area_refresh').text(data.data);
 	});
 });
 //]]>
 </script>
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<table id="area_navigator"><tbody>
 	<tr>
 		<td class="tabnavtbl">
 			<ul id="tabnav">
@@ -101,17 +79,24 @@ $(document).ready(function(){
 			</ul>
 		</td>
 	</tr>
-	<tr>
-		<td class="tabcont">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<?php html_titleline(gtext("Pool Information & Status"));?>
-				<tr>
-					<td class="listt">
-						<pre><span id="zfs_zpool_status"></span></pre>
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
-<?php include("fend.inc");?>
+</tbody></table>
+<table id="area_data"><tbody><tr><td id="area_data_frame">
+	<table id="area_data_settings">
+		<colgroup>
+			<col id="area_data_settings_col_tag">
+			<col id="area_data_settings_col_data">
+		</colgroup>
+		<thead>
+			<?php html_titleline2(gtext("Pool Information & Status"));?>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="celltag"><?=gtext('Information');?></td>
+				<td class="celldata">
+					<pre><span id="area_refresh"></span></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</td></tr></tbody></table>
+<?php include 'fend.inc';?>
