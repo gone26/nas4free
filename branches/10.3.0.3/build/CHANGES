@@ -39,12 +39,12 @@ Changes:
 - Upgrade bash to 4.4.
 - Upgrade inadyn-mt to 02.28.10.
 - Upgrade php to 7.0.12.
-- Upgrade syncthing to 0.14.9.
 - Upgrade tmux to 2.3.
 - Upgrade zoneinfo to 2016h.
 - Upgrade virtualbox-ose to 5.1.8.
 - Upgrade sudo to 1.8.18P1.
 - Upgrade nano to 2.7.1.
+- Upgrade syncthing to 0.14.10.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
