@@ -28,7 +28,6 @@ Changes:
 - Upgrade mDNSResponder to 625.41.2.
 - Upgrade noVNC to 0.6.1.
 - Upgrade samba to 4.3.11.
-- Upgrade lighttpd to 1.4.41.
 - Upgrade arcconf to 1_8_21375.
 - Upgrade e2fsprogs to 1.43.3.
 - Upgrade netatalk to 3.1.10.
@@ -45,6 +44,7 @@ Changes:
 - Upgrade nano to 2.7.1.
 - Upgrade syncthing to 0.14.10.
 - Upgrade iperf3 to 3.1.4.
+- Upgrade lighttpd to 1.4.42.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
