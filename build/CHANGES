@@ -44,7 +44,7 @@ Changes:
 - Upgrade nano to 2.7.1.
 - Upgrade syncthing to 0.14.10.
 - Upgrade iperf3 to 3.1.4.
-- Upgrade lighttpd to 1.4.42.
+Upgrade lighttpd to 1.4.43.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
