@@ -23,7 +23,6 @@ Changes:
 - Upgrade fusefs-ntfs to 2016.2.22.
 - Upgrade smartmontools to 6.5.
 - Upgrade msmtp to 1.6.5.
-- Upgrade iperf3 to 3.1.3.
 - Upgrade gzip to 1.8.
 - Upgrade unison to 2.48.4.
 - Upgrade mDNSResponder to 625.41.2.
@@ -45,6 +44,7 @@ Changes:
 - Upgrade sudo to 1.8.18P1.
 - Upgrade nano to 2.7.1.
 - Upgrade syncthing to 0.14.10.
+- Upgrade iperf3 to 3.1.4.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
