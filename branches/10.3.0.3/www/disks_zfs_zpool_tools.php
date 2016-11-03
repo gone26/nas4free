@@ -1,6 +1,6 @@
 <?php
 /*
-	disks_zfs_zpool_tools_g2.php
+	disks_zfs_zpool_tools.php
 
 	Part of NAS4Free (http://www.nas4free.org).
 	Copyright (c) 2012-2016 The NAS4Free Project <info@nas4free.org>.
@@ -46,6 +46,10 @@ $sphere_array = [];
 $prerequisites_ok = true;
 
 $o_zpool = new co_zpool_info();
+if(!$o_zpool->configuration_loaded()) {
+	header('Location: index.php');
+	exit;
+}
 $a_pool = $o_zpool->get_all_pools();
 $a_pool_for_attach_data = $o_zpool->get_pools_for_attach_data();
 $a_pool_for_attach_log = $o_zpool->get_pools_for_attach_log();
