@@ -27,7 +27,6 @@ Changes:
 - Upgrade unison to 2.48.4.
 - Upgrade mDNSResponder to 625.41.2.
 - Upgrade noVNC to 0.6.1.
-- Upgrade samba to 4.3.11.
 - Upgrade arcconf to 1_8_21375.
 - Upgrade e2fsprogs to 1.43.3.
 - Upgrade netatalk to 3.1.10.
@@ -45,6 +44,7 @@ Changes:
 - Upgrade iperf3 to 3.1.4.
 - Upgrade lighttpd to 1.4.43.
 - Upgrade tzdata to 2016i.
+- Upgrade samba to 4.3.12.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
