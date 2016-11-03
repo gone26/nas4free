@@ -44,7 +44,7 @@ Changes:
 - Upgrade nano to 2.7.1.
 - Upgrade syncthing to 0.14.10.
 - Upgrade iperf3 to 3.1.4.
-Upgrade lighttpd to 1.4.43.
+- Upgrade lighttpd to 1.4.43.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
@@ -68,6 +68,9 @@ Fixes:
 - Fix timezone in file manager.
 - Fix websockets-connection drop on mouse events in novnc.
 - Fix reverted libvncserver for proper shutdown vms.
+- Fix zpool tools - support added for pools with more than 10 vdevices.
+- Fix zpool tools - support added for vdevices with more than 10 devices.
+- Fix zpool tools - exception handling.
 
 Permanent restrictions:
 - It is not possible to use virtualbox-ose on 32-bits nas4free, 64-bits only feature.

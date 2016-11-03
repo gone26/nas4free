@@ -53,6 +53,10 @@ class co_zpool_info {
 		$this->set_poolname_filter();
 		$this->set_devicepath_strip_regex();
 	}
+	public function configuration_loaded() {
+		$b_ret = (false !== $this->a_xml);
+		return $b_ret;
+	}
 	public function pool_state_to_name($n_state = 0) {
 		switch ($n_state) {
 			case 0: return gtext('Active');
@@ -68,7 +72,7 @@ class co_zpool_info {
 	}
 	public function set_poolname_filter($value = '') {
 		if(preg_match('/\S/', $value)) {
-			$this->poolname_filter = $value;
+			$this->poolname_filter = htmlspecialchars($value, ENT_XML1 || ENT_NOQUOTES, 'UTF-8');
 			$this->is_poolname_filter_set = true;
 		} else {
 			$this->poolname_filter = '';
@@ -85,41 +89,41 @@ class co_zpool_info {
 		}
 	}
 	protected function pool_info_to_array($r_pool, &$r_ret = []) {
-		$r_ret['pool.guid'] = (string)$r_pool->pool_guid;
-		$r_ret['pool.name'] = (string)$r_pool->name;
-		$r_ret['pool.version'] = (string)$r_pool->version;
-		$r_ret['pool.state'] = (string)$r_pool->state;
-		$r_ret['pool.state_name'] = $this->pool_state_to_name($r_ret['pool.state']);
+		$r_ret['pool.guid'] = htmlspecialchars_decode((string)$r_pool->pool_guid, ENT_XML1 || ENT_NOQUOTES);
+		$r_ret['pool.name'] = htmlspecialchars_decode((string)$r_pool->name, ENT_XML1 || ENT_NOQUOTES);
+		$r_ret['pool.version'] = htmlspecialchars_decode((string)$r_pool->version, ENT_XML1 || ENT_NOQUOTES);
+		$r_ret['pool.state'] = htmlspecialchars_decode((string)$r_pool->state, ENT_XML1 || ENT_NOQUOTES);
+		$r_ret['pool.state_name'] = $this->pool_state_to_name(htmlspecialchars_decode($r_ret['pool.state'], ENT_XML1 || ENT_NOQUOTES));
 		return $r_ret;
 	}
 	protected function vdev_info_to_array($r_vdev, &$r_ret = []) {
-		$r_ret['vdev.type'] = (string)$r_vdev->type;
-		$r_ret['vdev.id'] = (string)$r_vdev->id;
-		$r_ret['vdev.guid'] = (string)$r_vdev->guid;
-		$r_ret['vdev.ashift'] = (string)$r_vdev->ashift;
-		$r_ret['vdev.asize'] = (string)$r_vdev->asize;
-		$r_ret['vdev.is_log'] = (string)$r_vdev->is_log;
+		$r_ret['vdev.type'] = htmlspecialchars_decode((string)$r_vdev->type, ENT_XML1 || ENT_NOQUOTES);
+		$r_ret['vdev.id'] = htmlspecialchars_decode((string)$r_vdev->id, ENT_XML1 || ENT_NOQUOTES);
+		$r_ret['vdev.guid'] = htmlspecialchars_decode((string)$r_vdev->guid, ENT_XML1 || ENT_NOQUOTES);
+		$r_ret['vdev.ashift'] = htmlspecialchars_decode((string)$r_vdev->ashift, ENT_XML1 || ENT_NOQUOTES);
+		$r_ret['vdev.asize'] = htmlspecialchars_decode((string)$r_vdev->asize, ENT_XML1 || ENT_NOQUOTES);
+		$r_ret['vdev.is_log'] = htmlspecialchars_decode((string)$r_vdev->is_log, ENT_XML1 || ENT_NOQUOTES);
 		return $r_ret;
 	}
-	protected function devicevdev_info_to_array($r_device, &$ret = []) {
-		$r_ret['vdev.type'] = (string)$r_device->type;
-		$r_ret['vdev.id'] = (string)$r_device->id;
+	protected function devicevdev_info_to_array($r_device, &$r_ret = []) {
+		$r_ret['vdev.type'] = htmlspecialchars_decode((string)$r_device->type, ENT_XML1 || ENT_NOQUOTES);
+		$r_ret['vdev.id'] = htmlspecialchars_decode((string)$r_device->id, ENT_XML1 || ENT_NOQUOTES);
 		$r_ret['vdev.guid'] = uuid();
-		$r_ret['vdev.ashift'] = (string)$r_device->ashift;
-		$r_ret['vdev.asize'] = (string)$r_device->asize;
-		$r_ret['vdev.is_log'] = (string)$r_device->is_log;
+		$r_ret['vdev.ashift'] = htmlspecialchars_decode((string)$r_device->ashift, ENT_XML1 || ENT_NOQUOTES);
+		$r_ret['vdev.asize'] = htmlspecialchars_decode((string)$r_device->asize, ENT_XML1 || ENT_NOQUOTES);
+		$r_ret['vdev.is_log'] = htmlspecialchars_decode((string)$r_device->is_log, ENT_XML1 || ENT_NOQUOTES);
 		return $r_ret;
 	}
 	protected function device_info_to_array($r_device, &$r_ret = []) {
-		$r_ret['device.type'] = (string)$r_device->type;
-		$r_ret['device.id'] = (string)$r_device->id;
-		$r_ret['device.guid'] = (string)$r_device->guid;
+		$r_ret['device.type'] = htmlspecialchars_decode((string)$r_device->type, ENT_XML1 || ENT_NOQUOTES);
+		$r_ret['device.id'] = htmlspecialchars_decode((string)$r_device->id, ENT_XML1 || ENT_NOQUOTES);
+		$r_ret['device.guid'] = htmlspecialchars_decode((string)$r_device->guid, ENT_XML1 || ENT_NOQUOTES);
 		if($this->is_devicepath_strip_regex) {
-			$r_ret['device.path'] = preg_replace($this->devicepath_strip_regex, '', (string)$r_device->path);
+			$r_ret['device.path'] = preg_replace($this->devicepath_strip_regex, '', htmlspecialchars_decode((string)$r_device->path, ENT_XML1 || ENT_NOQUOTES));
 		} else {
-			$r_ret['device.path'] = (string)$r_device->path;
+			$r_ret['device.path'] = htmlspecialchars_decode((string)$r_device->path, ENT_XML1 || ENT_NOQUOTES);
 		}
-		$r_ret['device.phys_path'] = (string)$r_device->phys_path;
+		$r_ret['device.phys_path'] = htmlspecialchars_decode((string)$r_device->phys_path, ENT_XML1 || ENT_NOQUOTES);
 		return $r_ret;
 	}
 	public function get_all_pools(&$a_ret = []) {
@@ -509,8 +513,8 @@ class co_zpool_info {
 		$tag_open = [];
 		$tag_index = -1;
 		$c_xml = '';
-		$c_xml .= '<?xml version="1.0" encoding="UTF-8"?>';
-		$c_xml .= sprintf('<%s>', 'pools'); // everything starts with pools
+		$c_xml .= '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+		$c_xml .= sprintf("<%s>\n", 'pools'); // everything starts with pools
 		$ap_pool = cli_zpool_info('', 'name,guid,health'); // get all available pools
 		foreach($ap_pool as $rp_pool) {
 			// get structure of each pool (zdb lists data vdevs and log vdevs but not spare and cache devices)
@@ -519,14 +523,20 @@ class co_zpool_info {
 			$retval = 0;
 			mwexec2($cmd, $a_row, $retval);
 			if($retval === 0) { // zdb command successful, pool information is available
-				$c_xml .= sprintf('<%s>', 'pool'); // open pool tag
+				$c_xml .= sprintf("<%s>\n", 'pool'); // open pool tag
 				$indent_previous = 0;
 				foreach($a_row as $r_row) {
 					$tag = '';
 					$b_tag = false;
 					$val = '';
 					$b_val = false;
-//					if(!$b_tag) {
+//					if(!$b_tag) { // check for tag:
+/*
+ *	Tag detection seaches for a string that matches the following criteria:
+ *	- starts with one or more blank characters
+ *	. followed by a sequence of non-blank characters except colon (:)
+ *	- ends with a colon (:)
+ */
 						unset($a_matches);
 						if(preg_match_all('/^(\s+)([^\s:]+):$/', $r_row, $a_matches)) { // tag detected
 							$indent_current = strlen($a_matches[1][0]);
@@ -535,19 +545,28 @@ class co_zpool_info {
 							$b_tag = true;
 						}
 //					}
-					if(!$b_tag) { // no tag without value detected, now check for tag:value
+					if(!$b_tag) { // no tag without value detected, now check for [tag: value]
+/*
+ * 	the following tags of [tag: value] pairs are currently used:
+ *  Summary:	pool_guid, name, version, state, type, id, guid, ashift, asize, is_log, path, phys_path
+ *	pool:		pool_guid, name, version, state
+ * 	vdev:		type, id, guid, ashift, asize, is_log
+ *	devicevdev:	type, id, ashift, asize, is_log
+ *	device		type, id, guid, path, phys_path
+ */
 						unset($a_matches);
-						if(preg_match_all('/^(\s+)([^\s:]+):\s(\S.*)$/i', $r_row, $a_matches)) { // tag->value detected)
+						if(preg_match_all('/^(\s+)(pool_guid|name|version|state|type|id|guid|ashift|asize|is_log|path|phys_path):\s(\S.*)$/', $r_row, $a_matches)) {
 							$indent_current = strlen($a_matches[1][0]);
 							$tag = $a_matches[2][0];
-							$val = str_replace("'", "", trim($a_matches[3][0])); // trim and remove surrounding single quores from value
+							$val = str_replace("'", "", trim($a_matches[3][0])); // trim and remove single quotes from value
+							$val = htmlspecialchars($val, ENT_XML1 || ENT_NOQUOTES, 'UTF-8');
 							$b_val = true;
 						}
 					}
 					if($b_tag || $b_val) {
 						// remove [(number)] from tag
 						unset($a_matches);
-						if(preg_match_all('/(\S+)\[\d\]/', $tag, $a_matches)) { // no start tag required, already covered
+						if(preg_match_all('/(\S+)\[\d+\]/', $tag, $a_matches)) { // extract tag from tag{index]
 							$tag = $a_matches[1][0];
 						}
 						switch ($indent_current <=> $indent_previous) {
@@ -555,38 +574,38 @@ class co_zpool_info {
 								// determine how many levels must be closed
 								$indent_diff = intdiv(($indent_previous - $indent_current), 4);
 								for($index = 0; $index < $indent_diff; $index++) {
-									$c_xml .= sprintf('</%s>', $tag_open[$tag_index]);
+									$c_xml .= sprintf("</%s>\n", $tag_open[$tag_index]);
 									unset($tag_open[$tag_index]);
 									$tag_index--;
 								}
 								if($b_val) { // it's a tag:value pair
-									$c_xml .= sprintf('<%s>%s</%s>', $tag, $val, $tag);
+									$c_xml .= sprintf("<%s>%s</%s>\n", $tag, $val, $tag);
 								} else {  // it's a new object
 									$tag_index++;
 									$tag_open[$tag_index] = $tag;
-									$c_xml .= sprintf('<%s>', $tag);
+									$c_xml .= sprintf("<%s>\n", $tag);
 								}
 								$indent_previous = $indent_current;
 								break;
 							}
 							case 0: { // same level, check for new objects / tag -> value, create tags
 								if($b_val) { // it's a tag:value pair
-									$c_xml .= sprintf('<%s>%s</%s>', $tag, $val, $tag);
+									$c_xml .= sprintf("<%s>%s</%s>\n", $tag, $val, $tag);
 								} else { // it's a new object
 									$tag_index++;
 									$tag_open[$tag_index] = $tag;
-									$c_xml .= sprintf('<%s>', $tag);
+									$c_xml .= sprintf("<%s>\n", $tag);
 								}
 								$indent_previous = $indent_current;
 								break;
 							}
 							case 1: {
 								if($b_val) { // it's a tag:value pair
-									$c_xml .= sprintf('<%s>%s</%s>', $tag, $val, $tag);
+									$c_xml .= sprintf("<%s>%s</%s>\n", $tag, $val, $tag);
 								} else { // it's a new object
 									$tag_open[$tag_index] = $tag;
 									$tag_index++;
-									$c_xml .= sprintf('<%s>', $tag);
+									$c_xml .= sprintf("<%s>\n", $tag);
 								}
 								$indent_previous = $indent_current;
 								break;
@@ -596,7 +615,7 @@ class co_zpool_info {
 				}
 				// close tags
 				for($index = $tag_index; $index > -1; $index--) {
-					$c_xml .= sprintf('</%s>', $tag_open[$tag_index]);
+					$c_xml .= sprintf("</%s>\n", $tag_open[$tag_index]);
 					unset($tag_open[$tag_index]);
 					$tag_index--;
 				}
@@ -606,7 +625,7 @@ class co_zpool_info {
 				$retval = 0;
 				mwexec2($cmd, $a_row, $retval);
 				// add spares
-				$c_xml .= sprintf('<%s>', 'spares');
+				$c_xml .= sprintf("<%s>\n", 'spares');
 				$a_spare = [];
 				$n_spare = 0;
 				foreach($a_row as $r_row) {
@@ -619,7 +638,7 @@ class co_zpool_info {
 						$a_match = [];
 						if (preg_match_all('/^\t(\s+)(\S+)/', $r_row, $a_match)) {
 							if($n_spare === strlen($a_match[1][0])) {
-								$a_spare[] = $a_match[2][0];
+								$a_spare[] = htmlspecialchars($a_match[2][0], ENT_XML1 || ENT_NOQUOTES, 'UTF-8');
 							}
 						} else {
 							break;
@@ -627,17 +646,17 @@ class co_zpool_info {
 					}
 				}
 				foreach($a_spare as $r_spare) { // it is not confirmed that the spare device is a disk
-					$c_xml .= '<children>';
-					$c_xml .= sprintf('<type>%s</type>', 'disk');
-					$c_xml .= sprintf('<guid>%s</guid>', uuid()); // temporary ID
-					$c_xml .= sprintf('<path>%s%s</path>', '/dev/', $r_spare); // /dev/ is an assumption
-					$c_xml .= sprintf('<phys_path>%s%s</phys_path>', '/dev/',$r_spare);
-					$c_xml .= sprintf('<is_spare>%s</is_spare>', '1');
+					$c_xml .= "<children>\n";
+					$c_xml .= sprintf("<type>%s</type>\n", 'disk');
+					$c_xml .= sprintf("<guid>%s</guid>\n", uuid()); // temporary ID
+					$c_xml .= sprintf("<path>%s%s</path>\n", '/dev/', $r_spare); // /dev/ is an assumption
+					$c_xml .= sprintf("<phys_path>%s%s</phys_path>\n", '/dev/',$r_spare);
+					$c_xml .= sprintf("<is_spare>%s</is_spare>\n", '1');
 					$c_xml .= '</children>';
 				}
-				$c_xml .= sprintf('</%s>', 'spares');
+				$c_xml .= sprintf("</%s>\n", 'spares');
 				// add cache
-				$c_xml .= sprintf('<%s>', 'caches');
+				$c_xml .= sprintf("<%s>\n", 'caches');
 				$a_cache = [];
 				$n_cache = 0;
 				foreach($a_row as $r_row) {
@@ -650,7 +669,7 @@ class co_zpool_info {
 						$a_match = [];
 						if (preg_match_all('/^\t(\s+)(\S+)/', $r_row, $a_match)) {
 							if($n_cache === strlen($a_match[1][0])) {
-								$a_cache[] = $a_match[2][0];
+								$a_cache[] = htmlspecialchars($a_match[2][0], ENT_XML1 || ENT_NOQUOTES, 'UTF-8');
 							}
 						} else {
 							break;
@@ -658,21 +677,32 @@ class co_zpool_info {
 					}
 				}
 				foreach($a_cache as $r_cache) { // it is not confirmed that the cache device is a disk
-					$c_xml .= '<children>';
-					$c_xml .= sprintf('<type>%s</type>', 'disk');
-					$c_xml .= sprintf('<guid>%s</guid>', uuid()); // temporary ID
-					$c_xml .= sprintf('<path>%s%s</path>', '/dev/', $r_cache);
-					$c_xml .= sprintf('<phys_path>%s%s</phys_path>', '/dev/',$r_cache);
-					$c_xml .= sprintf('<is_cache>%s</is_cache>', '1');
-					$c_xml .= sprintf('<x_type>%s</x_type>', 'CACHE');
+					$c_xml .= "<children>\n";
+					$c_xml .= sprintf("<type>%s</type>\n", 'disk');
+					$c_xml .= sprintf("<guid>%s</guid>\n", uuid()); // temporary ID
+					$c_xml .= sprintf("<path>%s%s</path>\n", '/dev/', $r_cache);
+					$c_xml .= sprintf("<phys_path>%s%s</phys_path>\n", '/dev/', $r_cache);
+					$c_xml .= sprintf("<is_cache>%s</is_cache>\n", '1');
+					$c_xml .= sprintf("<x_type>%s</x_type>\n", 'CACHE');
 					$c_xml .= '</children>';
 				}
-				$c_xml .= sprintf('</%s>', 'caches'); // end tag of cache
-				$c_xml .= sprintf('</%s>', 'pool'); // end tag of pool
+				$c_xml .= sprintf("</%s>\n", 'caches'); // end tag of cache
+				$c_xml .= sprintf("</%s>\n", 'pool'); // end tag of pool
 			}
 		}
-		$c_xml .= sprintf('</%s>', 'pools'); // final end tag
-		$this->a_xml = new SimpleXMLElement($c_xml);
+		$c_xml .= sprintf("</%s>\n", 'pools'); // final end tag
+		// load the string into xml
+		$previous_libxml_use_internal_errors = libxml_use_internal_errors(true); // suppress exeptions
+		libxml_clear_errors();
+		$this->a_xml = simplexml_load_string($c_xml);
+		if(!$this->configuration_loaded()) {
+			write_log('zpool tools: An error occured during collecting zpool configuration information, execution aborted.');
+			foreach(libxml_get_errors() as $o_error) {
+				write_log(sprintf('zpool tools: - %s', $o_error->message));
+			}
+		}
+		libxml_clear_errors();
+		libxml_use_internal_errors($previous_libxml_use_internal_errors);
 /*
  * adjust some data 
  */
@@ -683,19 +713,23 @@ class co_zpool_info {
 		// is_spare is "1": single spare disk
 		// 
 		// vdev_tree: set is_log = 0 on all vdev that are not log vdevs or single log disks
-		$x_device = '/pools/pool/vdev_tree/children[is_log="0"]/.//children[not(is_log)]';		
-		$a_device = $this->a_xml->xpath($x_device);
-		if(false !== $a_device) {
-			foreach($a_device as $r_device) {
-				$r_device->addChild('is_log', '0');
+		if($this->configuration_loaded()) {
+			$x_device = '/pools/pool/vdev_tree/children[is_log="0"]/.//children[not(is_log)]';		
+			$a_device = $this->a_xml->xpath($x_device);
+			if(false !== $a_device) {
+				foreach($a_device as $r_device) {
+					$r_device->addChild('is_log', '0');
+				}
 			}
 		}
 		// vdev_tree: set is_log = 1 on all vdev that are log vdevs or single log disks
-		$x_device = '/pools/pool/vdev_tree/children[is_log="1"]/.//children[not(is_log)]';		
-		$a_device = $this->a_xml->xpath($x_device);
-		if(false !== $a_device) {
-			foreach($a_device as $r_device) {
-				$r_device->addChild('is_log', '1');
+		if($this->configuration_loaded()) {
+			$x_device = '/pools/pool/vdev_tree/children[is_log="1"]/.//children[not(is_log)]';		
+			$a_device = $this->a_xml->xpath($x_device);
+			if(false !== $a_device) {
+				foreach($a_device as $r_device) {
+					$r_device->addChild('is_log', '1');
+				}
 			}
 		}
 		return true;
