@@ -73,7 +73,7 @@ if ($_POST) {
 		do_input_validation($_POST, $reqdfields, $reqdfieldsn, $input_errors);
 		do_input_validation_type($_POST, $reqdfields, $reqdfieldsn, $reqdfieldst, $input_errors);
 
-		if (gtext("Send now") !== $_POST['Submit']) {
+		if (isset($_POST["Submit"]) && $_POST["Submit"]) {
 			// Validate synchronization time
 			do_input_validate_synctime($_POST, $input_errors);
 		}
@@ -107,7 +107,7 @@ if ($_POST) {
 
 		write_config();
 
-		if (stristr($_POST['Submit'], gtext("Send now"))) {
+		if(isset($_POST['SendReportNow']) && $_POST['SendReportNow']) {
 			// Send an email status report now.
 			$retval = @report_send_mail();
 			if (0 == $retval) {
@@ -402,7 +402,7 @@ function enable_change(enable_change) {
 				</table>
 				<div id="submit">
 					<input name="Submit" type="submit" class="formbtn" value="<?=gtext("Save & Restart");?>" onclick="enable_change(true)" />
-					<input name="Submit" id="sendnow" type="submit" class="formbtn" value="<?=gtext("Send Now");?>" />
+					<input name="SendReportNow" id="sendnow" type="Submit" class="formbtn" value="<?=gtext("Send Now");?>" />
 				</div>
 			</td>
 		</tr>

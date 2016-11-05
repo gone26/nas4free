@@ -71,6 +71,7 @@ Fixes:
 - Fix zpool tools - support added for pools with more than 10 vdevices.
 - Fix zpool tools - support added for vdevices with more than 10 devices.
 - Fix zpool tools - exception handling.
+- Fix sending reports.
 
 Permanent restrictions:
 - It is not possible to use virtualbox-ose on 32-bits nas4free, 64-bits only feature.
