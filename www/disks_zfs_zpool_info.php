@@ -34,17 +34,17 @@
 require 'auth.inc';
 require 'guiconfig.inc';
 
-function zfs_zpool_get_status() {
+function disks_zfs_zpool_info_ajax() {
 	if (isset($_GET['pool']) && is_string($_GET['pool'])) {
 		$cmd = sprintf('zpool status -v "%s"', $_GET['pool']);
 	} else {
 		$cmd = 'zpool status -v';
 	}
 	mwexec2($cmd, $rawdata);
-	return htmlspecialchars(implode("\n", $rawdata));
+	return implode("\n", $rawdata);
 }
 if (is_ajax()) {
-	$status = zfs_zpool_get_status();
+	$status = disks_zfs_zpool_info_ajax();
 	render_ajax($status);
 }
 $pgtitle = [gtext('Disks'), gtext('ZFS'), gtext('Pools'), gtext('Information')];
