@@ -132,14 +132,6 @@ if (PAGE_MODE_POST == $mode_page) { // POST Submit, already confirmed
 			$input_errors[] = sprintf(gtext("The MIB '%s' doesn't exist in sysctl."), $sphere_record['name']);
 		}
 	}
-	// Check if MIB is already configured.
-	if ($prerequisites_ok && empty($input_errors)) {
-		if ($isrecordnewmodify) {
-			if (false !== array_search_ex($sphere_record['name'], $sphere_array, 'name')) {
-				$input_errors[] = sprintf(gtext("The MIB '%s' already exists."), $sphere_record['name']);
-			}
-		}
-	}
 	if ($prerequisites_ok && empty($input_errors)) {
 		if ($isrecordnew) {
 			$sphere_array[] = $sphere_record;
