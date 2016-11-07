@@ -1,4 +1,4 @@
-PORTNAME=	libvncserver
+PORTNAME=		libvncserver
 PORTVERSION=	0.9.9
 PORTREVISION=	12
 CATEGORIES=	net devel
@@ -15,6 +15,7 @@ LIB_DEPENDS=	libpng.so:graphics/png
 USES=		jpeg libtool pathfix
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
+DISABLE_VULNERABILITIES=yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--without-x
