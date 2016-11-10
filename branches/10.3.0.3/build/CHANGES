@@ -35,7 +35,6 @@ Changes:
 - Upgrade jQuery to 3.1.1.
 - Upgrade bash to 4.4.
 - Upgrade inadyn-mt to 02.28.10.
-- Upgrade php to 7.0.12.
 - Upgrade tmux to 2.3.
 - Upgrade virtualbox-ose to 5.1.8.
 - Upgrade sudo to 1.8.18P1.
@@ -45,6 +44,7 @@ Changes:
 - Upgrade lighttpd to 1.4.43.
 - Upgrade tzdata to 2016i.
 - Upgrade samba to 4.3.12.
+- Upgrade php to 7.0.13.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
