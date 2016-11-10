@@ -310,7 +310,7 @@ function controlactionbuttons(ego, triggerbyname) {
 			<?php html_titleline2(gtext('Filter'));?>
 		</thead>
 		<tbody>
-			<?php>
+			<?php
 				html_combobox2('filter_time', gtext('Age'), $filter_time, $l_filter_time, '');
 			?>
 		</tbody>
