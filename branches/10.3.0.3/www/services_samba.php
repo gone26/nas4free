@@ -317,7 +317,7 @@ function aio_change() {
 					</tr>
 					<?php html_combobox("doscharset", gtext("Dos charset"), $pconfig['doscharset'], array("CP437" => gtext("CP437 (Latin US)"), "CP850" => gtext("CP850 (Latin 1)"), "CP852" => gtext("CP852 (Latin 2)"), "CP866" => gtext("CP866 (Cyrillic CIS 1)"), "CP932" => gtext("CP932 (Japanese Shift-JIS)"), "CP936" => gtext("CP936 (Simplified Chinese GBK)"), "CP949" => gtext("CP949 (Korean)"), "CP950" => gtext("CP950 (Traditional Chinese Big5)"), "CP1251" => gtext("CP1251 (Cyrillic)"), "CP1252" => gtext("CP1252 (Latin 1)"), "ASCII" => "ASCII"), "", false);?>
 					<?php html_combobox("unixcharset", gtext("Unix charset"), $pconfig['unixcharset'], array("UTF-8" => "UTF-8", "iso-8859-1" => "ISO-8859-1", "iso-8859-15" => "ISO-8859-15", "gb2312" => "GB2312", "EUC-JP" => "EUC-JP", "ASCII" => "ASCII"), "", false);?>
-					<?php html_combobox("loglevel", gtext("Log Level"), $pconfig['loglevel'], array("1" => gtext("Minimum"), "2" => gtext("Normal"), "3" => gtext("Full"), "10" => gtext("Debug")), "", false);?>
+					<?php html_combobox("loglevel", gtext("Log Level"), $pconfig['loglevel'], array("0" => gtext("Disabled"), "1" => gtext("Minimum"), "2" => gtext("Normal"), "3" => gtext("Full"), "10" => gtext("Debug")), "", false);?>
 					<tr>
 						<td width="22%" valign="top" class="vncell"><?=gtext("Local Master Browser"); ?></td>
 						<td width="78%" class="vtable">
