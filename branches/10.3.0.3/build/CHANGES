@@ -22,7 +22,6 @@ Changes:
 - Upgrade phpvirtualbox to 5.0-5.
 - Upgrade fusefs-ntfs to 2016.2.22.
 - Upgrade smartmontools to 6.5.
-- Upgrade msmtp to 1.6.5.
 - Upgrade gzip to 1.8.
 - Upgrade unison to 2.48.4.
 - Upgrade mDNSResponder to 625.41.2.
@@ -45,6 +44,7 @@ Changes:
 - Upgrade samba to 4.3.12.
 - Upgrade php to 7.0.13.
 - Upgrade syncthing to 0.14.11.
+- Upgrade msmtp to 1.6.6.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
