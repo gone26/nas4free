@@ -1,6 +1,6 @@
 <?php
 /*
-	ptbr.php
+	pt_BR.php
 
 	Part of NAS4Free (http://www.nas4free.org).
 	Copyright (c) 2012-2016 The NAS4Free Project <info@nas4free.org>.
