@@ -41,10 +41,10 @@ Changes:
 - Upgrade tzdata to 2016i.
 - Upgrade samba to 4.3.12.
 - Upgrade php to 7.0.13.
-- Upgrade syncthing to 0.14.11.
 - Upgrade msmtp to 1.6.6.
 - Upgrade bash to 4.4 patch 5.
 - Upgrade mDNSResponder to 765.1.2.
+- Upgrade syncthing to 0.14.12.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
