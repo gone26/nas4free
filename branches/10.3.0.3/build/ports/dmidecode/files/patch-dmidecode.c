@@ -1,6 +1,31 @@
 --- dmidecode.c.orig	2015-09-03 08:03:19.000000000 +0200
-+++ dmidecode.c	2016-06-24 23:43:31.000000000 +0200
-@@ -2946,7 +2946,7 @@
++++ dmidecode.c	2016-11-24 13:08:47.000000000 +0100
+@@ -2274,10 +2274,13 @@
+ {
+ 	code &= 0x7FFFFFFFUL;
+ 
+-	/* Use the most suitable unit depending on size */
++	/*
++	 * Use the greatest unit for which the exact value can be displayed
++	 * as an integer without rounding
++	 */
+ 	if (code & 0x3FFUL)
+ 		printf(" %lu MB", (unsigned long)code);
+-	else if (code & 0xFFFFFUL)
++	else if (code & 0xFFC00UL)
+ 		printf(" %lu GB", (unsigned long)code >> 10);
+ 	else
+ 		printf(" %lu TB", (unsigned long)code >> 20);
+@@ -2389,7 +2392,7 @@
+ 		"LRDIMM"  /* 15 */
+ 	};
+ 
+-	if ((code & 0x7FFE) == 0)
++	if ((code & 0xFFFE) == 0)
+ 		printf(" None");
+ 	else
+ 	{
+@@ -2946,7 +2949,7 @@
   * first 5 characters of the device name to be trimmed. It's easy to
   * check and fix, so do it, but warn.
   */
@@ -9,18 +34,37 @@
  {
  	u8 *p = h->data;
  
-@@ -2954,7 +2954,9 @@
+@@ -2954,7 +2957,10 @@
  	if (h->length == 0x10
  	 && is_printable(p + 0x0B, 0x10 - 0x0B))
  	{
 -		printf("Invalid entry length (%u). Fixed up to %u.\n", 0x10, 0x0B);
 +		if (!(opt.flags & FLAG_QUIET) && display)
-+			printf("Invalid entry length (%u). Fixed up to %u.\n",
++			fprintf(stderr,
++				"Invalid entry length (%u). Fixed up to %u.\n",
 +				0x10, 0x0B);
  		h->length = 0x0B;
  	}
  }
-@@ -4443,7 +4445,7 @@
+@@ -4422,9 +4428,14 @@
+ 		 */
+ 		if (h.length < 4)
+ 		{
+-			printf("Invalid entry length (%u). DMI table is "
+-			       "broken! Stop.\n\n", (unsigned int)h.length);
+-			opt.flags |= FLAG_QUIET;
++			if (!(opt.flags & FLAG_QUIET))
++			{
++				fprintf(stderr,
++					"Invalid entry length (%u). DMI table "
++					"is broken! Stop.\n\n",
++					(unsigned int)h.length);
++				opt.flags |= FLAG_QUIET;
++			}
+ 			break;
+ 		}
+ 
+@@ -4443,7 +4454,7 @@
  
  		/* Fixup a common mistake */
  		if (h.type == 34)
@@ -29,7 +73,21 @@
  
  		/* look for the next handle */
  		next = data + h.length;
-@@ -4521,16 +4523,30 @@
+@@ -4485,11 +4496,11 @@
+ 	if (!(opt.flags & FLAG_QUIET))
+ 	{
+ 		if (num && i != num)
+-			printf("Wrong DMI structures count: %d announced, "
++			fprintf(stderr, "Wrong DMI structures count: %d announced, "
+ 				"only %d decoded.\n", num, i);
+ 		if ((unsigned long)(data - buf) > len
+ 		 || (num && (unsigned long)(data - buf) < len))
+-			printf("Wrong DMI structures length: %u bytes "
++			fprintf(stderr, "Wrong DMI structures length: %u bytes "
+ 				"announced, structures occupy %lu bytes.\n",
+ 				len, (unsigned long)(data - buf));
+ 	}
+@@ -4521,22 +4532,37 @@
  		printf("\n");
  	}
  
@@ -43,7 +101,8 @@
 -		base = 0;
  
 -	if ((buf = mem_chunk(base, len, devmem)) == NULL)
-+	{
+ 	{
+-		fprintf(stderr, "Table is unreachable, sorry."
 +		/*
 +		 * When reading from sysfs, the file may be shorter than
 +		 * announced. For SMBIOS v3 this is expcted, as we only know
@@ -55,7 +114,7 @@
 +		buf = read_file(&size, devmem);
 +		if (!(opt.flags & FLAG_QUIET) && num && size != (size_t)len)
 +		{
-+			printf("Wrong DMI structures length: %u bytes "
++			fprintf(stderr, "Wrong DMI structures length: %u bytes "
 +				"announced, only %lu bytes available.\n",
 +				len, (unsigned long)size);
 +		}
@@ -65,10 +124,40 @@
 +		buf = mem_chunk(base, len, devmem);
 +
 +	if (buf == NULL)
- 	{
- 		fprintf(stderr, "Table is unreachable, sorry."
++	{
++		fprintf(stderr, "Failed to read table, sorry.\n");
  #ifndef USE_MMAP
-@@ -4748,6 +4764,7 @@
+-			" Try compiling dmidecode with -DUSE_MMAP."
++		if (!(flags & FLAG_NO_FILE_OFFSET))
++			fprintf(stderr,
++				"Try compiling dmidecode with -DUSE_MMAP.\n");
+ #endif
+-			"\n");
+ 		return;
+ 	}
+ 
+@@ -4633,14 +4659,16 @@
+ 		case 0x021F:
+ 		case 0x0221:
+ 			if (!(opt.flags & FLAG_QUIET))
+-				printf("SMBIOS version fixup (2.%d -> 2.%d).\n",
+-				       ver & 0xFF, 3);
++				fprintf(stderr,
++					"SMBIOS version fixup (2.%d -> 2.%d).\n",
++					ver & 0xFF, 3);
+ 			ver = 0x0203;
+ 			break;
+ 		case 0x0233:
+ 			if (!(opt.flags & FLAG_QUIET))
+-				printf("SMBIOS version fixup (2.%d -> 2.%d).\n",
+-				       51, 6);
++				fprintf(stderr,
++					"SMBIOS version fixup (2.%d -> 2.%d).\n",
++					51, 6);
+ 			ver = 0x0206;
+ 			break;
+ 	}
+@@ -4748,9 +4776,17 @@
  	int ret = 0;                /* Returned value */
  	int found = 0;
  	off_t fp;
@@ -76,7 +165,17 @@
  	int efi;
  	u8 *buf;
  
-@@ -4817,8 +4834,9 @@
++	/*
++	 * We don't want stdout and stderr to be mixed up if both are
++	 * redirected to the same file.
++	 */
++	setlinebuf(stdout);
++	setlinebuf(stderr);
++
+ 	if (sizeof(u8) != 1 || sizeof(u16) != 2 || sizeof(u32) != 4 || '\0' != 0)
+ 	{
+ 		fprintf(stderr, "%s: compiler incompatibility\n", argv[0]);
+@@ -4817,8 +4853,9 @@
  	 * contain one of several types of entry points, so read enough for
  	 * the largest one, then determine what type it contains.
  	 */
@@ -87,7 +186,7 @@
  	{
  		if (!(opt.flags & FLAG_QUIET))
  			printf("Getting SMBIOS data from sysfs.\n");
-@@ -4864,8 +4882,17 @@
+@@ -4864,8 +4901,17 @@
  		goto exit_free;
  	}
  
