@@ -33,7 +33,6 @@ Changes:
 - Upgrade jQuery to 3.1.1.
 - Upgrade inadyn-mt to 02.28.10.
 - Upgrade tmux to 2.3.
-- Upgrade virtualbox-ose to 5.1.8.
 - Upgrade sudo to 1.8.18P1.
 - Upgrade nano to 2.7.1.
 - Upgrade iperf3 to 3.1.4.
@@ -45,6 +44,7 @@ Changes:
 - Upgrade bash to 4.4 patch 5.
 - Upgrade mDNSResponder to 765.1.2.
 - Upgrade syncthing to 0.14.12.
+- Upgrade virtualbox-ose to 5.1.10.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
