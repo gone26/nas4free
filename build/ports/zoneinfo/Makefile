@@ -1,5 +1,5 @@
 PORTNAME=		zoneinfo
-DISTVERSION=	2016i
+DISTVERSION=	2016j
 CATEGORIES=		misc
 COMMENT=		Updated timezone definitions
 MAINTAINER=		zoon1@nas4free.org
@@ -17,7 +17,7 @@ POSIXRULES=	America/New_York
 
 .include <bsd.port.pre.mk>
 
-# The following country codes can be missing from /usr/share/misc/iso3166 and
+# The following country codes can be missed from /usr/share/misc/iso3166 and
 # shouldn't appear in the zoneinfo file.
 MISSING=	ax bl bq cw gg im je me mf rs ss sx
 
