@@ -42,9 +42,9 @@ Changes:
 - Upgrade msmtp to 1.6.6.
 - Upgrade bash to 4.4 patch 5.
 - Upgrade mDNSResponder to 765.1.2.
-- Upgrade syncthing to 0.14.12.
 - Upgrade virtualbox-ose to 5.1.10.
 - Upgrade tzdata to 2016j.
+- Upgrade syncthing to 0.14.13.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
