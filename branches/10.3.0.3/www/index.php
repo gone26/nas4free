@@ -606,7 +606,7 @@ $(document).ready(function(){
 				exec("uptime", $result);
 				$loadaverage = substr(strrchr($result[0], "load averages:"), 15);
 				?>
-				<input style="padding: 0; border: 0; background-color:#FCFCFC;" size="14" name="loadaverage" id="loadaverage" value="<?=$loadaverage;?>" />
+				<input style="padding: 0; border: 0; background-color:#FCFCFC;" size="18" name="loadaverage" id="loadaverage" value="<?=$loadaverage;?>" />
 				<?="<small>[<a href='status_process.php'>".gtext("Show Process Information")."</a></small>]";?>
 			</td>
 		</tr>
