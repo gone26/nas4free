@@ -38,13 +38,13 @@ Changes:
 - Upgrade iperf3 to 3.1.4.
 - Upgrade lighttpd to 1.4.43.
 - Upgrade samba to 4.3.12.
-- Upgrade php to 7.0.13.
 - Upgrade msmtp to 1.6.6.
 - Upgrade bash to 4.4 patch 5.
 - Upgrade mDNSResponder to 765.1.2.
 - Upgrade virtualbox-ose to 5.1.10.
 - Upgrade tzdata to 2016j.
 - Upgrade syncthing to 0.14.13.
+- Upgrade php to 7.0.14.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
