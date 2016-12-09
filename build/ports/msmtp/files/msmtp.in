@@ -24,7 +24,9 @@ msmtprc=${msmtprc:-"/usr/local/etc/msmtprc"}
 # Create msmtp.conf configuration
 /usr/local/bin/xml sel -t \
 	-o "account default" -n \
-	-v "concat('domain ',//system/domain)" -n \
+	-i "string-length(//system/domain) > 0" \
+		-v "concat('domain ',//system/domain)" -n \
+	-b \
 	-v "concat('host ',//system/email/server)" -n \
 	-v "concat('port ',//system/email/port)" -n \
 	-o "protocol smtp" -n \
