@@ -34,7 +34,6 @@ Changes:
 - Upgrade inadyn-mt to 02.28.10.
 - Upgrade tmux to 2.3.
 - Upgrade sudo to 1.8.18P1.
-- Upgrade nano to 2.7.1.
 - Upgrade iperf3 to 3.1.4.
 - Upgrade lighttpd to 1.4.43.
 - Upgrade samba to 4.3.12.
@@ -45,6 +44,7 @@ Changes:
 - Upgrade tzdata to 2016j.
 - Upgrade syncthing to 0.14.13.
 - Upgrade php to 7.0.14.
+- Upgrade nano to 2.7.2.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
