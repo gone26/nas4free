@@ -221,11 +221,11 @@ function get_latest_file($rss) {
 }
 
 function check_firmware_version_rss($locale) {
-	$rss_path = "http://sourceforge.net/projects/nas4free/rss?limit=40";
-	$rss_release = "http://sourceforge.net/projects/nas4free/rss?path=/NAS4Free-@@VERSION@@&limit=20";
-	$rss_beta = "http://sourceforge.net/projects/nas4free/rss?path=/NAS4Free-Beta&limit=20";
-	$rss_arm = "http://sourceforge.net/projects/nas4free/rss?path=/NAS4Free-ARM&limit=20";
-	$rss_arm_beta = "http://sourceforge.net/projects/nas4free/rss?path=/NAS4Free-ARM/Beta&limit=20";
+	$rss_path = "https://sourceforge.net/projects/nas4free/rss?limit=40";
+	$rss_release = "https://sourceforge.net/projects/nas4free/rss?path=/NAS4Free-@@VERSION@@&limit=20";
+	$rss_beta = "https://sourceforge.net/projects/nas4free/rss?path=/NAS4Free-Beta&limit=20";
+	$rss_arm = "https://sourceforge.net/projects/nas4free/rss?path=/NAS4Free-ARM&limit=20";
+	$rss_arm_beta = "https://sourceforge.net/projects/nas4free/rss?path=/NAS4Free-ARM/Beta&limit=20";
 
 	// replace with existing version
 	$path_version = get_path_version($rss_path);
