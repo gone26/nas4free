@@ -44,7 +44,7 @@ Changes:
 - Upgrade tzdata to 2016j.
 - Upgrade php to 7.0.14.
 - Upgrade nano to 2.7.2.
-- Upgrade syncthing to 0.14.14.
+- Upgrade syncthing to 0.14.15.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
