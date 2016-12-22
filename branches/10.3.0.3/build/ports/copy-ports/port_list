@@ -1,7 +1,0 @@
-Used for rrdtool. New versions brakes pango modules & fonts.
-pango				/usr/ports/x11-toolkits/pango
-
-Used te be compatible with PHP7. Port phpvirtualbox from 5.0-5 and up is fully compatible.
-virtualbox-ose 			/usr/ports/emulators/virtualbox-ose
-virtualbox-ose-additions 	/usr/ports/emulators/virtualbox-ose-additions
-virtualbox-ose-kmod 		/usr/ports/emulators/virtualbox-ose-kmod

@@ -1838,7 +1838,12 @@ copy_files() {
 			rm -rf /usr/ports/x11-toolkits/pango
 			echo "===> Start copy new pango files to ports/x11-toolkits"
 			cp -Rpv ${NAS4FREE_SVNDIR}/build/ports/copy-ports/files/pango /usr/ports/x11-toolkits/pango
-			echo "===> Replace /usr/ports/x11-toolkits/pango done!"
+			echo "===> Copy new files to /usr/ports/x11-toolkits/pango done!"
+			echo "===> Delete ffmpeg from ports"
+			rm -rf /usr/ports/multimedia/ffmpeg
+			echo "===> Start copy new pango files to ports/multimedia"
+			cp -Rpv ${NAS4FREE_SVNDIR}/build/ports/copy-ports/files/ffmpeg /usr/ports/multimedia/ffmpeg
+			echo "===> Copy new files to /usr/ports/multimedia/ffmpeg done!"
 
 	return 0
 }
