@@ -5,7 +5,7 @@ CATEGORIES=	x11-toolkits
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome2
 
-MAINTAINER=	zoon01@nas4free
+MAINTAINER=	zoon1@nas4free
 COMMENT=	Open-source framework for the layout and rendering of i18n text
 
 USES=		tar:xz

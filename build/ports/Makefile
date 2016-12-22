@@ -19,6 +19,7 @@
     SUBDIR += geom_raid5
     SUBDIR += grub2-bhyve
     SUBDIR += gzip
+    SUBDIR += icu
     SUBDIR += inadyn-mt
     SUBDIR += iperf3
     SUBDIR += ipmitool
