@@ -33,7 +33,6 @@ Changes:
 - Upgrade inadyn-mt to 02.28.10.
 - Upgrade tmux to 2.3.
 - Upgrade iperf3 to 3.1.4.
-- Upgrade lighttpd to 1.4.43.
 - Upgrade msmtp to 1.6.6.
 - Upgrade bash to 4.4 patch 5.
 - Upgrade mDNSResponder to 765.1.2.
@@ -44,6 +43,7 @@ Changes:
 - Upgrade virtualbox-ose to 5.1.12.
 - Upgrade syncthing to 0.14.16.
 - Upgrade samba to 4.3.13.
+- Upgrade lighttpd to 1.4.44.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
