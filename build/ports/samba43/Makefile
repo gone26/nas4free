@@ -158,7 +158,6 @@ CONFIGURE_ARGS+=	\
 			--with-sendfile-support \
 			--builtin-libraries=smbclient \
 			${ICONV_CONFIGURE_BASE}
-
 # for libexecinfo: (so that __builtin_frame_address() finds the top of the stack)
 .if ${ARCH} == "amd64"
 CFLAGS+=		-fno-omit-frame-pointer
@@ -193,11 +192,12 @@ GDB_CMD?=		${LOCALBASE}/bin/gdb
 BUILD_DEPENDS+=		${GDB_CMD}:devel/gdb
 RUN_DEPENDS+=		${GDB_CMD}:devel/gdb
 SAMBA4_MODULES+=	auth_skel perfcount_test pdb_test vfs_shadow_copy_test vfs_skel_opaque vfs_skel_transparent vfs_fake_acls
-CONFIGURE_ARGS+=	--enable-developer --enable-selftest
-PLIST_SUB+=		DEVELOPER=""
+CONFIGURE_ARGS+=        --enable-developer --enable-selftest --with-ntvfs-fileserver --abi-check-disable
+PLIST_SUB+=             DEVELOPER="" NTVFS=""
 .else
 GDB_CMD=		true
-PLIST_SUB+=		DEVELOPER="@comment "
+ CONFIGURE_ARGS+=        --without-ntvfs-fileserver 
+PLIST_SUB+=             DEVELOPER="@comment " NTVFS="@comment "
 .endif
 ##############################################################################
 # XXX: That will blow up your installation
@@ -346,7 +346,8 @@ CONFIGURE_ARGS+=	--without-ads
 
 .if defined(SAMBA4_WANT_LDAP)
 USE_OPENLDAP=		yes
-#WANT_OPENLDAP_SASL=	yes
+# NAS4Free
+#WANT_OPENLDAP_SASL=     yes
 CONFIGURE_ARGS+=	--with-ldap
 PLIST_SUB+=		LDAP=""
 .else
