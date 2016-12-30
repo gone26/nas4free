@@ -38,12 +38,12 @@ Changes:
 - Upgrade mDNSResponder to 765.1.2.
 - Upgrade tzdata to 2016j.
 - Upgrade php to 7.0.14.
-- Upgrade nano to 2.7.2.
 - Upgrade sudo to 1.8.19p1.
 - Upgrade virtualbox-ose to 5.1.12.
 - Upgrade samba to 4.3.13.
 - Upgrade lighttpd to 1.4.44.
 - Upgrade syncthing to 0.14.17.
+- Upgrade nano to 2.7.3.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
