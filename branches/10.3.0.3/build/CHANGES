@@ -42,8 +42,8 @@ Changes:
 - Upgrade virtualbox-ose to 5.1.12.
 - Upgrade samba to 4.3.13.
 - Upgrade lighttpd to 1.4.44.
-- Upgrade syncthing to 0.14.17.
 - Upgrade nano to 2.7.3.
+- Upgrade syncthing to 0.14.18.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
