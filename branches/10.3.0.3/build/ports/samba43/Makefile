@@ -346,8 +346,7 @@ CONFIGURE_ARGS+=	--without-ads
 
 .if defined(SAMBA4_WANT_LDAP)
 USE_OPENLDAP=		yes
-# NAS4Free
-#WANT_OPENLDAP_SASL=     yes
+WANT_OPENLDAP_SASL=     yes
 CONFIGURE_ARGS+=	--with-ldap
 PLIST_SUB+=		LDAP=""
 .else
