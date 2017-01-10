@@ -1,5 +1,5 @@
 PORTNAME=		nano
-PORTVERSION=	2.7.3
+PORTVERSION=	2.7.4
 PORTREVISION?=  0
 CATEGORIES=		editors
 COMMENT=		Nano's ANOther editor, an enhanced free Pico clone
@@ -32,12 +32,12 @@ post-configure:
 	${REINPLACE_CMD} -e 's/update_revision//g' ${WRKSRC}/src/Makefile
 
 post-build:
-	cd ${WRKSRC}/doc/man; ${REINPLACE_CMD} \
+	cd ${WRKSRC}/doc; ${REINPLACE_CMD} \
 		-e 's:SYSCONFDIR:${PREFIX}/etc:g' \
 		-e 's:EXAMPLESDIR:${EXAMPLESDIR}:g' \
-		nano.1 rnano.1 nanorc.5 ${WRKSRC}/doc/texinfo/${INFO:=.info}
+		nano.1 rnano.1 nanorc.5 ${WRKSRC}/doc/${INFO:=.info}
 	${REINPLACE_CMD} -e 's/\\</[[:<:]]/g' -e 's/\\>/[[:>:]]/g' \
-		${WRKSRC}/doc/syntax/*.nanorc
+		${WRKSRC}/doc/*.nanorc
 
 post-install:
 # NAS4Free install
