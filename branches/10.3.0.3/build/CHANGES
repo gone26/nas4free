@@ -43,7 +43,7 @@ Changes:
 - Upgrade samba to 4.3.13.
 - Upgrade lighttpd to 1.4.44.
 - Upgrade nano to 2.7.4.
-- Upgrade syncthing to 0.14.18.
+- Upgrade syncthing to 0.14.19.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
