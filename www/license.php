@@ -229,7 +229,7 @@ $pgtitle = array(gtext("Help"), gtext("License & Credits"));
 	    Copyright &copy; 1989, 1991 Free Software Foundation. All Rights Reserved.</p>
 
 	    <p> Fuse - Filesystem in Userspace (<a href="https://github.com/libfuse/libfuse" target="_blank">https://github.com/libfuse/libfuse</a>)<br />
-	    Copyright &copy;GNU General Public License. All Rights Reserved.</p>
+	    Copyright &copy; GNU General Public License. All Rights Reserved.</p>
 
 	    <p> e2fsprogs (<a href="http://e2fsprogs.sourceforge.net" target="_blank">http://e2fsprogs.sourceforge.net</a>)<br />
 	    Copyright &copy; 2007 Theodore Ts'o. All Rights Reserved.</p>
@@ -290,7 +290,7 @@ $pgtitle = array(gtext("Help"), gtext("License & Credits"));
 	    Copyright &copy; 2010 Nicholas Marriott. All Rights Reserved.</p>
 
 	    <p> iperf3 - An tool to measure TCP and UDP bandwidth. (<a href="http://software.es.net/iperf/" target="_blank">http://software.es.net/iperf</a>)<br />
-	    Copyright &copy; 2014-2016 The Regents of the University of California. All Rights Reserved.</p>
+	    Copyright &copy; 2014-2017 ESnet. All Rights Reserved.</p>
 
 	    <p> sudo - An tool to allow a sysadmin to give limited root privileges. (<a href="http://www.sudo.ws" target="_blank">http://www.sudo.ws</a>)<br />
 	    Copyright &copy; 1994-1996, 1998-2016 Todd C. Miller. All Rights Reserved.</p>
