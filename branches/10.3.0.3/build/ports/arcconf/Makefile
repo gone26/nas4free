@@ -19,8 +19,6 @@ NO_WRKSUBDIR=	yes
 
 .if ${OPSYS} != FreeBSD
 IGNORE=		installs incompatible binaries for FreeBSD
-.elif ${OSVERSION} < 1000000
-DIST_OSVER=	9
 .else
 DIST_OSVER=	10
 .endif
