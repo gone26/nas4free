@@ -1,10 +1,11 @@
 PORTNAME=		mDNSResponder
-PORTVERSION=	765.1.2
+PORTVERSION=	765.30.11
+PORTREVISION=	0
 CATEGORIES=		net dns
 COMMENT=		Apple's mDNSResponder
 MAINTAINER=		zoon1@nas4free.org
 
-MASTER_SITES=	http://www.opensource.apple.com/tarballs/mDNSResponder/
+MASTER_SITES=		http://www.opensource.apple.com/tarballs/mDNSResponder/
 DISTNAME=		${PORTNAME}-${PORTVERSION}
 
 
