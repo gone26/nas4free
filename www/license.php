@@ -281,7 +281,7 @@ $pgtitle = array(gtext("Help"), gtext("License & Credits"));
 	    Copyright &copy; 2011-2016 Ian Moore, Inc. All Rights Reserved.</p>
 
 	    <p> noVNC (<a href="http://kanaka.github.io/noVNC/" target="_blank">http://kanaka.github.io/noVNC/</a>)<br />
-	    Copyright &copy; 2011-2016 Joel Martin (<a href="mailto:github@martintribe.org">github@martintribe.org</a>) Inc. All Rights Reserved.</p>
+	    Copyright &copy; 2011-2017 Joel Martin (<a href="mailto:github@martintribe.org">github@martintribe.org</a>) Inc. All Rights Reserved.</p>
 
 	    <p> LCDproc - An client/server suite for LCD devices (<a href="http://lcdproc.org" target="_blank">http://lcdproc.org</a>)<br />
 	    Copyright &copy; 1998-2006 William Ferrell, Selene Scriven and many other contributors. All Rights Reserved.</p>
