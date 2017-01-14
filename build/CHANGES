@@ -44,6 +44,7 @@ Changes:
 - Upgrade iperf3 to 3.1.5.
 - Upgrade noVNC to 0.6.2.
 - Upgrade mDNSResponder to 765.30.11.
+- Upgrade libvncserver to 0.9.11.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
