@@ -35,7 +35,6 @@ Changes:
 - Upgrade bash to 4.4 patch 5.
 - Upgrade tzdata to 2016j.
 - Upgrade php to 7.0.14.
-- Upgrade sudo to 1.8.19p1.
 - Upgrade virtualbox-ose to 5.1.12.
 - Upgrade samba to 4.3.13.
 - Upgrade nano to 2.7.4.
@@ -45,6 +44,7 @@ Changes:
 - Upgrade mDNSResponder to 765.30.11.
 - Upgrade libvncserver to 0.9.11.
 - Upgrade lighttpd to 1.4.45.
+- Upgrade sudo to 1.8.19p2.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
