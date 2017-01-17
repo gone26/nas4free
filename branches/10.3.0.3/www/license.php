@@ -165,7 +165,7 @@ $pgtitle = array(gtext("Help"), gtext("License & Credits"));
 	    Copyright &copy; 2010-2014 Now maintained by Lev Serebryakov (<a href="mailto:lev@FreeBSD.org">lev@FreeBSD.org</a>).</p>
 
 	    <p> PHP - An server-side scripting language (<a href="http://www.php.net" target="_blank">http://www.php.net</a>)<br />
-	    Copyright &copy; 1999-2016 The PHP Group. All Rights Reserved.</p>
+	    Copyright &copy; 1999-2017 The PHP Group. All Rights Reserved.</p>
 
 	    <p> jQuery - An fast, small, and feature-rich JavaScript library (<a href="http://jquery.com" target="_blank">http://jquery.com</a>).<br />
 	    Copyright &copy; 2016 jQuery Foundation. All Rights Reserved.</p>
@@ -223,7 +223,7 @@ $pgtitle = array(gtext("Help"), gtext("License & Credits"));
 	    Copyright &copy; 2003 Ron Pedde (<a href="mailto:ron@pedde.com">ron@pedde.com</a>). All Rights Reserved.</p>
 
 	    <p> NTFS-3G - NTFS-3G is a NTFS driver (<a href="http://www.tuxera.com/community/open-source-ntfs-3g/" target="_blank">http://www.tuxera.com/community/open-source-ntfs-3g</a>)<br />
-	    Copyright &copy; 2008-2015 Tuxera Inc. All Rights Reserved.</p>
+	    Copyright &copy; 2008-2016 Tuxera Inc. All Rights Reserved.</p>
 
 	    <p> ext4fuse - EXT4 implementation for FUSE (<a href="https://github.com/gerard/ext4fuse" target="_blank">https://github.com/gerard/ext4fuse</a>)<br />
 	    Copyright &copy; 1989, 1991 Free Software Foundation. All Rights Reserved.</p>
@@ -293,7 +293,7 @@ $pgtitle = array(gtext("Help"), gtext("License & Credits"));
 	    Copyright &copy; 2014-2017 ESnet. All Rights Reserved.</p>
 
 	    <p> sudo - An tool to allow a sysadmin to give limited root privileges. (<a href="http://www.sudo.ws" target="_blank">http://www.sudo.ws</a>)<br />
-	    Copyright &copy; 1994-1996, 1998-2016 Todd C. Miller. All Rights Reserved.</p>
+	    Copyright &copy; 1994-1996, 1998-2017 Todd C. Miller. All Rights Reserved.</p>
 
 	    <p> ipmitool - IPMItool provides a simple command-line interface to v1.5 & v2.0 IPMI-enabled devices. (<a href="http://sourceforge.net/projects/ipmitool/" target="_blank">http://sourceforge.net/projects/ipmitool</a>)<br />
 	    Copyright &copy; 2003 Sun Microsystems. All Rights Reserved.</p>
