@@ -186,7 +186,7 @@ $pgtitle = array(gtext("Help"), gtext("License & Credits"));
 	    Copyright &copy; 2007 Free Software Foundation. All Rights Reserved.</p>
 
 	    <p> ProFTPD - Highly configurable FTP server (<a href="http://www.proftpd.org" target="_blank">http://www.proftpd.org</a>)<br />
-	    Copyright &copy; 1999, 2000-2016 The ProFTPD Project. All Rights Reserved.</p>
+	    Copyright &copy; 1999, 2000-2017 The ProFTPD Project. All Rights Reserved.</p>
 
 	    <p> TFTPD-HPA - TFTPD-HPA (Trivial File Transfer Protocol Server) (<a href="http://www.kernel.org/pub/software/network/tftp" target="_blank">http://www.kernel.org/pub/software/network/tftp</a>)<br />
 	    Copyright &copy; 1999, 2000-2009 The tftp-hpa series is maintained by H. Peter Anvin. <hpa@zytor.com>All Rights Reserved.</p>
@@ -275,7 +275,7 @@ $pgtitle = array(gtext("Help"), gtext("License & Credits"));
 	    Copyright &copy; 2007-2015 VMware Inc. All rights reserved.</p>
 
 	    <p> VirtualBox Open Source Edition (OSE) & (Guest Additions) (<a href="http://www.virtualbox.org" target="_blank">http://www.virtualbox.org</a>)<br />
-	    Copyright &copy; 2010-2016, Oracle and/or its affiliates. All Rights Reserved.</p>
+	    Copyright &copy; 2010-2017, Oracle and/or its affiliates. All Rights Reserved.</p>
 
 	    <p> phpVirtualBox (<a href="http://sourceforge.net/projects/phpvirtualbox/" target="_blank">http://sourceforge.net/projects/phpvirtualbox</a>)<br />
 	    Copyright &copy; 2011-2016 Ian Moore, Inc. All Rights Reserved.</p>
