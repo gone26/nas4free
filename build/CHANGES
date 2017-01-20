@@ -32,7 +32,6 @@ Changes:
 - Upgrade inadyn-mt to 02.28.10.
 - Upgrade tmux to 2.3.
 - Upgrade msmtp to 1.6.6.
-- Upgrade bash to 4.4 patch 5.
 - Upgrade tzdata to 2016j.
 - Upgrade samba to 4.3.13.
 - Upgrade nano to 2.7.4.
@@ -47,6 +46,7 @@ Changes:
 - Upgrade proftpd to 1.3.5d.
 - Upgrade virtualbox-ose to 5.1.14.
 - Upgrade ipmitool to 1.8.18.
+- Upgrade bash to 4.4 patch 11.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
