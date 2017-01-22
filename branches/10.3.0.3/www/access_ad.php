@@ -168,7 +168,7 @@ function enable_change(enable_change) {
 					$helpinghand  = gtext('To use Active Directory the CIFS/SMB service will enabled as well.');
 					$helpinghand .= ' ';
 					$helpinghand .= gtext('The following services will use AD authentication:');
-					$helphinhand .= "<div id='enumeration'><ul><li>CIFS/SMB</li><li>SSH</li><li>FTP</li><li>AFP</li><li>System</li></ul></div>";
+					$helpinghand .= "<div id='enumeration'><ul><li>CIFS/SMB</li><li>SSH</li><li>FTP</li><li>AFP</li><li>System</li></ul></div>";
 					html_remark("note", gtext('Note'), $helpinghand);
 					?>
 				</div>
