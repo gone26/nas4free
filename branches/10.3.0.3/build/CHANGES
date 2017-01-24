@@ -35,7 +35,6 @@ Changes:
 - Upgrade tzdata to 2016j.
 - Upgrade samba to 4.3.13.
 - Upgrade nano to 2.7.4.
-- Upgrade syncthing to 0.14.19.
 - Upgrade iperf3 to 3.1.5.
 - Upgrade noVNC to 0.6.2.
 - Upgrade mDNSResponder to 765.30.11.
@@ -47,6 +46,7 @@ Changes:
 - Upgrade virtualbox-ose to 5.1.14.
 - Upgrade ipmitool to 1.8.18.
 - Upgrade bash to 4.4 patch 11.
+- Upgrade syncthing to 0.14.20.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
