@@ -46,7 +46,7 @@ Changes:
 - Upgrade virtualbox-ose to 5.1.14.
 - Upgrade ipmitool to 1.8.18.
 - Upgrade bash to 4.4 patch 11.
-- Upgrade syncthing to 0.14.20.
+- Upgrade syncthing to 0.14.21.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
