@@ -27,7 +27,6 @@ Changes:
 - Upgrade arcconf to 1_8_21375.
 - Upgrade e2fsprogs to 1.43.3.
 - Upgrade netatalk to 3.1.10.
-- Upgrade dialog to 1.3-20160828.
 - Upgrade jQuery to 3.1.1.
 - Upgrade inadyn-mt to 02.28.10.
 - Upgrade tmux to 2.3.
@@ -47,6 +46,7 @@ Changes:
 - Upgrade syncthing to 0.14.21.
 - Upgrade bash to 4.4 patch 12.
 - Upgrade iperf3 to 3.1.6.
+- Upgrade dialog to 1.3-20170131.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
