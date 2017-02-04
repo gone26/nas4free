@@ -36,7 +36,7 @@
     SUBDIR += nano
     SUBDIR += netatalk3
     SUBDIR += novnc
-    SUBDIR += nss-pam-ldapd-sasl
+    SUBDIR += nss-ldap
     SUBDIR += nut
     SUBDIR += open-vm-tools
     SUBDIR += openssh-portable
