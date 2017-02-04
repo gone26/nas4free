@@ -1,4 +1,4 @@
-PORTNAME=		nss-pam-ldapd-sasl
+PORTNAME=		nss_ldap
 PORTVERSION=	1.0
 PORTREVISION=   0
 CATEGORIES=		net
@@ -15,10 +15,10 @@ NO_PKG_REGISTER?=	yes
 #ALWAYS_BUILD_DEPENDS=	yes
 DEPENDS_TARGET=	clean build
 
-BUILD_DEPENDS=	${NONEXISTENT}:net/nss-pam-ldapd-sasl
+BUILD_DEPENDS=	${NONEXISTENT}:net/nss_ldap
 
 do-install:
-	@${INSTALL_PROGRAM} -v ${PORTSDIR}/net/nss-pam-ldapd-sasl/work/nss-pam-ldapd-*/nss/nss_ldap.so ${NAS4FREE_ROOTFS}/usr/local/lib/nss_ldap.so.1
+	@${INSTALL_PROGRAM} -v ${PORTSDIR}/net/nss_ldap/work/nss_ldap-*/nss_ldap.so ${NAS4FREE_ROOTFS}/usr/local/lib/nss_ldap.so.1
 	@${LN} -fsv /var/etc/ldap.conf ${NAS4FREE_ROOTFS}/usr/local/etc/nss_ldap.conf
 	@${LN} -fsv /var/etc/ldap.secret ${NAS4FREE_ROOTFS}/usr/local/etc/nss_ldap.secret
 
