@@ -46,7 +46,7 @@ Changes:
 - Upgrade iperf3 to 3.1.6.
 - Upgrade dialog to 1.3-20170131.
 - Upgrade e2fsprogs to 1.43.4.
-- Upgrade syncthing to 0.14.22.
+- Upgrade syncthing to 0.14.23.
 
 Fixes:
 - Fix prevent deletion of mounted gconcat softraid.
